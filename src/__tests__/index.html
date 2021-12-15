@@ -1,0 +1,66 @@
+<!--
+  to experiment with auth locally, run `npx serve -p 4167` from the repo root
+  Then open http://127.0.0.1:4167/src/__tests__
+ -->
+<script>
+  if (window.opener) {
+    window.opener.authComplete(location.href);
+    window.close();
+  }
+</script>
+<script src="../../dist/index.js"></script>
+
+<div></div>
+<main hidden>
+  You are logged in!
+  <button onclick="getUser()">Call the OSM User API</button>
+  <button onclick="logout()">Logout</button>
+  <pre></pre>
+</main>
+<aside hidden>
+  <button onclick="login()">Login</button>
+</aside>
+
+<script>
+  const redirectUrl = "http://127.0.0.1:4167/src/__tests__";
+
+  // must use 127.0.0.1, not localhost
+  if (location.hostname === "localhost") {
+    window.location.replace(redirectUrl);
+  }
+
+  function login() {
+    const errorDiv = document.querySelector("div");
+    errorDiv.innerText = "";
+
+    OSM.login({
+      mode: "popup",
+      clientId: "ytK3ZAZCFb8z2MjIzo0MMpXE8qiseOUGnGR_5jIIr5M",
+      redirectUrl: redirectUrl,
+      scopes: ["write_api", "read_prefs"],
+    })
+      .then(init)
+      .catch((err) => {
+        errorDiv.innerText = `${err}`;
+      });
+  }
+  function logout() {
+    OSM.logout();
+    init();
+  }
+  function getUser() {
+    const pre = document.querySelector("pre");
+    OSM.getUser("me")
+      .then((result) => {
+        pre.innerText = JSON.stringify(result, null, 2);
+      })
+      .catch((err) => {
+        pre.innerText = `${err}`;
+      });
+  }
+  function init() {
+    document.querySelector("main").hidden = !OSM.isLoggedIn();
+    document.querySelector("aside").hidden = OSM.isLoggedIn();
+  }
+  init();
+</script>

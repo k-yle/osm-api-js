@@ -1,0 +1,52 @@
+name: Build and Test
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x, 16.x]
+
+    steps:
+      - name: ⏬ Checkout code
+        uses: actions/checkout@v2
+
+      - name: 🔢 Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: ⏬ Install
+        run: |
+          npm install
+
+      - name: ✨ Lint
+        run: |
+          npm run lint
+
+      - name: 🔨 Build
+        run: |
+          npm run build
+
+      - name: 🧪 Test
+        run: |
+          npm test
+        env:
+          FORCE_COLOR: 1
+
+      # - name: 📈 Coveralls
+      #   uses: coverallsapp/github-action@1.1.3
+      #   with:
+      #     github-token: ${{ secrets.github_token }}
+
+      - name: 📦 Publish
+        if: ${{ github.ref == 'refs/heads/main' && matrix['node-version'] == '16.x' }}
+        run: |
+          npm config set //registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN
+          npm run trypublish
+        env:
+          CI: true
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}

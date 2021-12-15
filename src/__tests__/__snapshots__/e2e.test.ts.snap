@@ -1,0 +1,393 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`end to end tests getCapabilities 1`] = `
+Object {
+  "limits": Object {
+    "maxArea": 0.25,
+    "maxChangesetElements": 10000,
+    "maxNoteArea": 25,
+    "maxTimeout": 300,
+    "maxTracepointPerPage": 5000,
+    "maxWayNodes": 2000,
+  },
+  "policy": Object {
+    "imageryBlacklist": Array [
+      ".*\\\\.google(apis)?\\\\..*/(vt|kh)[\\\\?/].*([xyz]=.*){3}.*",
+      "http://xdworld\\\\.vworld\\\\.kr:8080/.*",
+      ".*\\\\.here\\\\.com[/:].*",
+    ],
+  },
+}
+`;
+
+exports[`end to end tests getChangesetDiff 1`] = `
+Object {
+  "create": Array [
+    Object {
+      "changeset": 227200,
+      "id": 4330788673,
+      "lat": -36.8804242,
+      "lon": 174.7398822,
+      "tags": Object {
+        "bus": "yes",
+        "highway": "bus_stop",
+        "network": "AT",
+        "network:wikidata": "Q4819567",
+        "network:wikipedia": "en:Auckland Transport",
+        "public_transport": "platform",
+      },
+      "timestamp": "2021-12-16T09:29:15Z",
+      "type": "node",
+      "uid": 12248,
+      "user": "kylenz_testing",
+      "version": 1,
+    },
+    Object {
+      "changeset": 227200,
+      "id": 4330788674,
+      "lat": -36.8809317,
+      "lon": 174.7397472,
+      "tags": undefined,
+      "timestamp": "2021-12-16T09:29:15Z",
+      "type": "node",
+      "uid": 12248,
+      "user": "kylenz_testing",
+      "version": 1,
+    },
+    Object {
+      "changeset": 227200,
+      "id": 4330788675,
+      "lat": -36.8801611,
+      "lon": 174.7399983,
+      "tags": undefined,
+      "timestamp": "2021-12-16T09:29:15Z",
+      "type": "node",
+      "uid": 12248,
+      "user": "kylenz_testing",
+      "version": 1,
+    },
+    Object {
+      "changeset": 227200,
+      "id": 4330788676,
+      "lat": -36.8809762,
+      "lon": 174.7397789,
+      "tags": undefined,
+      "timestamp": "2021-12-16T09:29:15Z",
+      "type": "node",
+      "uid": 12248,
+      "user": "kylenz_testing",
+      "version": 1,
+    },
+    Object {
+      "changeset": 227200,
+      "id": 4330788677,
+      "lat": -36.8809526,
+      "lon": 174.7398473,
+      "tags": undefined,
+      "timestamp": "2021-12-16T09:29:15Z",
+      "type": "node",
+      "uid": 12248,
+      "user": "kylenz_testing",
+      "version": 1,
+    },
+    Object {
+      "changeset": 227200,
+      "id": 4330788678,
+      "lat": -36.8801278,
+      "lon": 174.7400692,
+      "tags": undefined,
+      "timestamp": "2021-12-16T09:29:15Z",
+      "type": "node",
+      "uid": 12248,
+      "user": "kylenz_testing",
+      "version": 1,
+    },
+    Object {
+      "changeset": 227200,
+      "id": 4330788679,
+      "lat": -36.880182,
+      "lon": 174.7400986,
+      "tags": undefined,
+      "timestamp": "2021-12-16T09:29:15Z",
+      "type": "node",
+      "uid": 12248,
+      "user": "kylenz_testing",
+      "version": 1,
+    },
+    Object {
+      "changeset": 227200,
+      "id": 4305800031,
+      "nodes": Array [
+        4330788675,
+        4330788678,
+        4330788679,
+        4330788677,
+        4330788676,
+        4330788674,
+        4330788675,
+      ],
+      "tags": Object {
+        "access": "no",
+        "bus": "designated",
+        "highway": "bus_guideway",
+        "name": "The Loop",
+        "oneway": "yes",
+      },
+      "timestamp": "2021-12-16T09:29:15Z",
+      "type": "way",
+      "uid": 12248,
+      "user": "kylenz_testing",
+      "version": 1,
+    },
+    Object {
+      "changeset": 227200,
+      "id": 4304961500,
+      "members": Array [
+        Object {
+          "ref": 4305800031,
+          "role": "",
+          "type": "way",
+        },
+      ],
+      "tags": Object {
+        "name": "NX3",
+        "network": "AT",
+        "network:wikidata": "Q4819567",
+        "network:wikipedia": "en:Auckland Transport",
+        "route": "bus",
+        "type": "route",
+      },
+      "timestamp": "2021-12-16T09:29:15Z",
+      "type": "relation",
+      "uid": 12248,
+      "user": "kylenz_testing",
+      "version": 1,
+    },
+  ],
+  "delete": Array [],
+  "modify": Array [
+    Object {
+      "changeset": 227200,
+      "id": 4305800016,
+      "nodes": Array [
+        4330788634,
+        4330788635,
+        4330788636,
+        4330788637,
+        4330788634,
+      ],
+      "tags": Object {
+        "building": "yes",
+        "building:levels": "1",
+        "roof:colour": "grey",
+      },
+      "timestamp": "2021-12-16T09:29:15Z",
+      "type": "way",
+      "uid": 12248,
+      "user": "kylenz_testing",
+      "version": 2,
+    },
+  ],
+}
+`;
+
+exports[`end to end tests getFeature full=false 1`] = `
+Array [
+  Object {
+    "changeset": 227200,
+    "id": 4305800016,
+    "nodes": Array [
+      4330788634,
+      4330788635,
+      4330788636,
+      4330788637,
+      4330788634,
+    ],
+    "tags": Object {
+      "building": "yes",
+      "building:levels": "1",
+      "roof:colour": "grey",
+    },
+    "timestamp": "2021-12-16T09:29:15Z",
+    "type": "way",
+    "uid": 12248,
+    "user": "kylenz_testing",
+    "version": 2,
+  },
+]
+`;
+
+exports[`end to end tests getFeature full=true 1`] = `
+Array [
+  Object {
+    "changeset": 227184,
+    "id": 4330788634,
+    "lat": -36.8805784,
+    "lon": 174.739496,
+    "timestamp": "2021-12-16T08:43:07Z",
+    "type": "node",
+    "uid": 12248,
+    "user": "kylenz_testing",
+    "version": 1,
+  },
+  Object {
+    "changeset": 227184,
+    "id": 4330788635,
+    "lat": -36.8804809,
+    "lon": 174.7395284,
+    "timestamp": "2021-12-16T08:43:07Z",
+    "type": "node",
+    "uid": 12248,
+    "user": "kylenz_testing",
+    "version": 1,
+  },
+  Object {
+    "changeset": 227184,
+    "id": 4330788636,
+    "lat": -36.8805295,
+    "lon": 174.7397571,
+    "timestamp": "2021-12-16T08:43:07Z",
+    "type": "node",
+    "uid": 12248,
+    "user": "kylenz_testing",
+    "version": 1,
+  },
+  Object {
+    "changeset": 227184,
+    "id": 4330788637,
+    "lat": -36.880627,
+    "lon": 174.7397248,
+    "timestamp": "2021-12-16T08:43:07Z",
+    "type": "node",
+    "uid": 12248,
+    "user": "kylenz_testing",
+    "version": 1,
+  },
+  Object {
+    "changeset": 227200,
+    "id": 4305800016,
+    "nodes": Array [
+      4330788634,
+      4330788635,
+      4330788636,
+      4330788637,
+      4330788634,
+    ],
+    "tags": Object {
+      "building": "yes",
+      "building:levels": "1",
+      "roof:colour": "grey",
+    },
+    "timestamp": "2021-12-16T09:29:15Z",
+    "type": "way",
+    "uid": 12248,
+    "user": "kylenz_testing",
+    "version": 2,
+  },
+]
+`;
+
+exports[`end to end tests getNotesForQuery 1`] = `
+Array [
+  Object {
+    "close_url": "https://master.apis.dev.openstreetmap.org/api/0.6/notes/28530/close.json",
+    "comment_url": "https://master.apis.dev.openstreetmap.org/api/0.6/notes/28530/comment.json",
+    "comments": Array [
+      Object {
+        "action": "opened",
+        "date": "2021-12-16 09:24:43 UTC",
+        "html": "<p>cycleway=no</p>",
+        "text": "cycleway=no",
+        "uid": 12248,
+        "user": "kylenz_testing",
+        "user_url": "https://master.apis.dev.openstreetmap.org/user/kylenz_testing",
+      },
+    ],
+    "date_created": "2021-12-16 09:24:43 UTC",
+    "id": 28530,
+    "location": Object {
+      "lat": -36.8298622,
+      "lng": 174.7462971,
+    },
+    "status": "open",
+    "url": "https://master.apis.dev.openstreetmap.org/api/0.6/notes/28530.json",
+  },
+]
+`;
+
+exports[`end to end tests getUser 1`] = `
+Object {
+  "account_created": 2021-12-15T09:49:18.000Z,
+  "blocks": Object {
+    "received": Object {
+      "active": 0,
+      "count": 0,
+    },
+  },
+  "changesets": Object {
+    "count": 4,
+  },
+  "contributor_terms": Object {
+    "agreed": true,
+  },
+  "description": "",
+  "display_name": "kylenz_testing",
+  "id": 12248,
+  "roles": Array [],
+  "traces": Object {
+    "count": 0,
+  },
+}
+`;
+
+exports[`end to end tests listChangesets 1`] = `
+Array [
+  Object {
+    "changes_count": 10,
+    "closed_at": 2021-12-16T09:29:15.000Z,
+    "comments_count": 0,
+    "created_at": 2021-12-16T09:29:14.000Z,
+    "discussion": undefined,
+    "id": 227200,
+    "max_lat": -36.8801278,
+    "max_lon": 174.7400986,
+    "min_lat": -36.8809762,
+    "min_lon": 174.739496,
+    "open": false,
+    "tags": Object {
+      "changesets_count": "2",
+      "comment": "create node, way, and relation. modify way",
+      "created_by": "iD 2.20.2",
+      "host": "https://master.apis.dev.openstreetmap.org/edit",
+      "imagery_used": "LINZ NZ Aerial Imagery",
+      "locale": "en-NZ",
+      "warnings:disconnected_way:highway": "1",
+    },
+    "uid": 12248,
+    "user": "kylenz_testing",
+  },
+  Object {
+    "changes_count": 5,
+    "closed_at": 2021-12-16T08:43:07.000Z,
+    "comments_count": 0,
+    "created_at": 2021-12-16T08:43:06.000Z,
+    "discussion": undefined,
+    "id": 227184,
+    "max_lat": -36.8804809,
+    "max_lon": 174.7397571,
+    "min_lat": -36.880627,
+    "min_lon": 174.739496,
+    "open": false,
+    "tags": Object {
+      "changesets_count": "1",
+      "comment": "add building in dev environment",
+      "created_by": "iD 2.20.2",
+      "host": "https://master.apis.dev.openstreetmap.org/edit",
+      "imagery_used": "LINZ NZ Aerial Imagery",
+      "locale": "en-NZ",
+    },
+    "uid": 12248,
+    "user": "kylenz_testing",
+  },
+]
+`;

@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "target": "es2015",
+    "lib": ["es2021", "dom"],
+    "moduleResolution": "node",
+    "downlevelIteration": true,
+    "declaration": true,
+    "stripInternal": true,
+    "outDir": "dist"
+  },
+  "include": ["src"]
+}
