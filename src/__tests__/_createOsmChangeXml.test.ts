@@ -99,7 +99,7 @@ describe("createOsmChangeXml", () => {
     </way>
     <way id="4002" version="2" changeset="6001">
       <tag k="highway" v="path"/>
-      <tag k="surface" v="&lt; & &quot; &apos; &gt;"/>
+      <tag k="surface" v="&lt; &amp; &quot; &apos; &gt;"/>
       <nd ref="3005"/>
       <nd ref="3006"/>
       <nd ref="3007"/>

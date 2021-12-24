@@ -1,7 +1,7 @@
 # OpenStreetMap API for Javascript
 
-[![Build Status](https://github.com/osm-nz/osm-api-js/workflows/Build%20and%20Test/badge.svg)](https://github.com/osm-nz/osm-api-js/actions)
-[![Coverage Status](https://coveralls.io/repos/github/osm-nz/osm-api-js/badge.svg?branch=main&t=LQmPNl)](https://coveralls.io/github/osm-nz/osm-api-js?branch=main)
+[![Build Status](https://github.com/k-yle/osm-api-js/workflows/Build%20and%20Test/badge.svg)](https://github.com/k-yle/osm-api-js/actions)
+[![Coverage Status](https://coveralls.io/repos/github/k-yle/osm-api-js/badge.svg?branch=main&t=LQmPNl)](https://coveralls.io/github/k-yle/osm-api-js?branch=main)
 [![npm version](https://badge.fury.io/js/osm-api.svg)](https://badge.fury.io/js/osm-api)
 [![npm](https://img.shields.io/npm/dt/osm-api.svg)](https://www.npmjs.com/package/osm-api)
 ![npm bundle size](https://img.shields.io/bundlephobia/minzip/osm-api)

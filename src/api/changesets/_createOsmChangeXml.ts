@@ -6,6 +6,8 @@ const builder = new XMLBuilder({
   attributeNamePrefix: "$",
   format: true,
   suppressEmptyNode: true,
+  // this runs before the other escapes (fast-xml-parser#297)
+  attributeValueProcessor: (_key, value) => value.replace(/&/g, "&amp;"),
 });
 
 /** @internal */
@@ -58,7 +60,7 @@ const createGroup = (csId: number, features: OsmFeature[], isCreate?: true) =>
     { node: [] as unknown[], way: [] as unknown[], relation: [] as unknown[] }
   );
 
-/** @internal */
+// not marked as internal - this one can be used by consumers
 export function createOsmChangeXml(csId: number, diff: OsmChange): string {
   return builder.build({
     osmChange: {

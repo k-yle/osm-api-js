@@ -12,7 +12,7 @@ type Config = {
 
 const config: Config = {
   apiUrl: "https://api.openstreetmap.org",
-  userAgent: "https://github.com/osm-nz/osm-api-js",
+  userAgent: "https://github.com/k-yle/osm-api-js",
 };
 
 export const getConfig = (): Config => config;

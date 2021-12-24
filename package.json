@@ -1,6 +1,6 @@
 {
   "name": "osm-api",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "contributors": [
     "Kyle Hensel (https://github.com/k-yle)"
   ],
@@ -16,7 +16,7 @@
     "openstreetmap",
     "openstreetmap api"
   ],
-  "repository": "https://github.com/osm-nz/osm-api-js",
+  "repository": "https://github.com/k-yle/osm-api-js",
   "scripts": {
     "build": "rm -rf dist && tsc --emitDeclarationOnly && rm -rf dist/__tests__ && browserify -x isomorphic-fetch -s OSM src/index.ts -p tsify | uglifyjs > dist/index.js",
     "lint": "eslint --format pretty --ext .ts --ignore-path .gitignore . --resolve-plugins-relative-to ./node_modules/eslint-config-kyle",
