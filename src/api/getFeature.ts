@@ -52,11 +52,11 @@ export async function getFeature(
  * Gets infomation about **multiple** nodes, ways, or relations.
  * The IDs can be numbers, or a number plus a version (e.g. `123456789v2`)
  */
-export async function getFeatures(
-  type: OsmFeatureType,
+export async function getFeatures<T extends OsmFeatureType>(
+  type: T,
   ids: (number | string)[]
-): Promise<OsmRelation[]> {
-  const raw = await osmFetch<{ elements: OsmRelation[] }>(
+): Promise<UtilFeatureForType<T>[]> {
+  const raw = await osmFetch<{ elements: UtilFeatureForType<T>[] }>(
     `/0.6/${type}s.json?${type}s=${ids.join(",")}`
   );
   return raw.elements;

@@ -1,11 +1,12 @@
 {
   "name": "osm-api",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "contributors": [
     "Kyle Hensel (https://github.com/k-yle)"
   ],
   "description": "🗺️🌏 Javascript/Typescript wrapper around the OpenStreetMap API",
   "main": "dist",
+  "unpkg": "dist/index.min.js",
   "types": "dist/index.d.ts",
   "license": "MIT",
   "files": [
@@ -18,7 +19,7 @@
   ],
   "repository": "https://github.com/k-yle/osm-api-js",
   "scripts": {
-    "build": "rm -rf dist && tsc --emitDeclarationOnly && rm -rf dist/__tests__ && browserify -x isomorphic-fetch -s OSM src/index.ts -p tsify | uglifyjs > dist/index.js",
+    "build": "rm -rf dist && tsc --emitDeclarationOnly && rm -rf dist/__tests__ && browserify -x isomorphic-fetch -s OSM src/index.ts -p tsify > dist/index.js && uglifyjs dist/index.js > dist/index.min.js",
     "lint": "eslint --format pretty --ext .ts --ignore-path .gitignore . --resolve-plugins-relative-to ./node_modules/eslint-config-kyle",
     "test": "jest --runInBand",
     "trypublish": "npm publish || true"

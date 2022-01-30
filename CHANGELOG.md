@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## 1.0.2 (2022-01-30)
+
+- minors improvements to osmChange generation
+
 ## 1.0.1 (2021-12-24)
 
 - fix an issue with escaping XML characters when uploading changeset

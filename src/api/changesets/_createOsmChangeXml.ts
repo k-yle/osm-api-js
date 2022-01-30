@@ -10,8 +10,10 @@ const builder = new XMLBuilder({
   attributeValueProcessor: (_key, value) => value.replace(/&/g, "&amp;"),
 });
 
+type Tags = Record<string, string>;
+
 /** @internal */
-export function createChangesetMetaXml(tags: Record<string, string>) {
+export function createChangesetMetaXml(tags: Tags) {
   return builder.build({
     osm: {
       changeset: {
@@ -39,10 +41,12 @@ const createGroup = (csId: number, features: OsmFeature[], isCreate?: true) =>
           return { ...ac, node: [...ac.node, feat] };
         }
         case "way": {
+          if (!f.nodes) throw new Error("Way has no nodes");
           const feat = { ...base, nd: f.nodes.map(($ref) => ({ $ref })) };
           return { ...ac, way: [...ac.way, feat] };
         }
         case "relation": {
+          if (!f.members) throw new Error("Relation has no members");
           const feat = {
             ...base,
             member: f.members.map((m) => ({
@@ -61,11 +65,16 @@ const createGroup = (csId: number, features: OsmFeature[], isCreate?: true) =>
   );
 
 // not marked as internal - this one can be used by consumers
-export function createOsmChangeXml(csId: number, diff: OsmChange): string {
+export function createOsmChangeXml(
+  csId: number,
+  diff: OsmChange,
+  metadata?: Tags
+): string {
   return builder.build({
     osmChange: {
       $version: "0.6",
       $generator: "osm-api-js",
+      ...metadata,
       create: [createGroup(csId, diff.create, true)],
       modify: [createGroup(csId, diff.modify)],
       delete: [{ "$if-unused": true, ...createGroup(csId, diff.delete) }],
