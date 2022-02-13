@@ -6,8 +6,6 @@ const builder = new XMLBuilder({
   attributeNamePrefix: "$",
   format: true,
   suppressEmptyNode: true,
-  // this runs before the other escapes (fast-xml-parser#297)
-  attributeValueProcessor: (_key, value) => value.replace(/&/g, "&amp;"),
 });
 
 type Tags = Record<string, string>;

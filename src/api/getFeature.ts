@@ -106,11 +106,11 @@ export async function getWaysForNode(nodeId: number): Promise<OsmWay[]> {
 
 /** gets a list of relations that a node, way, or relation belongs to */
 export async function getRelationsForElement(
-  type: OsmFeature,
+  type: OsmFeatureType,
   id: number
 ): Promise<OsmRelation[]> {
   const raw = await osmFetch<{ elements: OsmRelation[] }>(
-    `/0.6/${type}/${id}/relation.json`
+    `/0.6/${type}/${id}/relations.json`
   );
   return raw.elements;
 }

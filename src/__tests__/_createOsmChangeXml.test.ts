@@ -11,7 +11,7 @@ describe("createChangesetMetaXml", () => {
         comment: "micromapping my high school",
         created_by: "iD 2.20.0",
       })
-    ).toStrictEqual(
+    ).toBe(
       `<osm>
   <changeset>
     <tag k="comment" v="micromapping my high school"/>
@@ -78,7 +78,7 @@ describe("createOsmChangeXml", () => {
         },
       ],
     } as unknown as OsmChange;
-    expect(createOsmChangeXml(6001, osmChange)).toStrictEqual(
+    expect(createOsmChangeXml(6001, osmChange)).toBe(
       `<osmChange version="0.6" generator="osm-api-js">
   <create>
     <node id="-1" version="0" changeset="6001" lat="-36.94949" lon="174.7676">
@@ -115,7 +115,7 @@ describe("createOsmChangeXml", () => {
       <member type="way" ref="4004" role="inner"/>
     </relation>
   </modify>
-  <delete if-unused="true">
+  <delete if-unused>
     <node id="3011" version="2" changeset="6001" lat="-36.913179" lon="174.7204874">
       <tag k="addr:housenumber" v="3"/>
       <tag k="addr:street" v="Delaney Avenue"/>
