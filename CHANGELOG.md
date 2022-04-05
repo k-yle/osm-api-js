@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## 1.0.4 (2022-04-06)
+
+- fix bug with changeset xml
+
 ## 1.0.3 (2022-04-01)
 
 - fix bug with getRelationsForElement

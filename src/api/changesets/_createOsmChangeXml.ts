@@ -6,6 +6,7 @@ const builder = new XMLBuilder({
   attributeNamePrefix: "$",
   format: true,
   suppressEmptyNode: true,
+  suppressBooleanAttributes: false,
 });
 
 type Tags = Record<string, string>;

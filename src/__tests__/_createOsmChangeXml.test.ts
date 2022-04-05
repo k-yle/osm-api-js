@@ -115,7 +115,7 @@ describe("createOsmChangeXml", () => {
       <member type="way" ref="4004" role="inner"/>
     </relation>
   </modify>
-  <delete if-unused>
+  <delete if-unused="true">
     <node id="3011" version="2" changeset="6001" lat="-36.913179" lon="174.7204874">
       <tag k="addr:housenumber" v="3"/>
       <tag k="addr:street" v="Delaney Avenue"/>
