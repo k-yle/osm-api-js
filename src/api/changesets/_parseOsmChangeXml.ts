@@ -73,6 +73,5 @@ export function parseOsmChangeJson(raw: RawOsmChange): OsmChange {
 // not marked as internal - this one can be used by consumers
 export function parseOsmChangeXml(xml: string): OsmChange {
   const raw = xmlParser.parse(xml);
-  console.log(raw);
   return parseOsmChangeJson(raw);
 }

@@ -14,6 +14,9 @@ export type OsmBaseFeature = {
   tags?: {
     [key: string]: string;
   };
+
+  /** if false, it means the feature has been deleted */
+  visible?: false;
 };
 
 export type OsmNode = OsmBaseFeature & {
