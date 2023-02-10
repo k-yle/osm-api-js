@@ -46,7 +46,13 @@ describe("createOsmChangeXml", () => {
           type: "way",
           id: 4001,
           version: 6,
-          tags: { amenity: "ice_cream", building: "yes" },
+          tags: {
+            amenity: "ice_cream",
+            building: "yes",
+            // test that 'constructor' works as a tag key since some editors don't
+            // support it: https://github.com/openstreetmap/iD/issues/3044
+            constructor: "Davies Construction Ltd",
+          },
           nodes: [3001, 3002, 3003, 3004, 3001],
         },
         {
@@ -91,6 +97,7 @@ describe("createOsmChangeXml", () => {
     <way id="4001" version="6" changeset="6001">
       <tag k="amenity" v="ice_cream"/>
       <tag k="building" v="yes"/>
+      <tag k="constructor" v="Davies Construction Ltd"/>
       <nd ref="3001"/>
       <nd ref="3002"/>
       <nd ref="3003"/>
