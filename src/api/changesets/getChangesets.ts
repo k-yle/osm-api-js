@@ -1,6 +1,6 @@
-import { BBox, Changeset } from "../../types";
+import type { BBox, Changeset } from "../../types";
 import { osmFetch } from "../_osmFetch";
-import { RawChangesets } from "../_rawResponse";
+import type { RawChangesets } from "../_rawResponse";
 
 const mapRawChangeset = (
   raw: NonNullable<RawChangesets["osm"][0]["changeset"]>[0]

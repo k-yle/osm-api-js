@@ -1,4 +1,4 @@
-import { BBox, OsmFeature } from "../types";
+import type { BBox, OsmFeature } from "../types";
 import { osmFetch } from "./_osmFetch";
 
 /**

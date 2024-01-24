@@ -41,7 +41,7 @@ export type OsmFeature = OsmNode | OsmWay | OsmRelation;
 export type UtilFeatureForType<T extends OsmFeatureType> = T extends "node"
   ? OsmNode
   : T extends "way"
-  ? OsmWay
-  : T extends "relation"
-  ? OsmRelation
-  : never;
+    ? OsmWay
+    : T extends "relation"
+      ? OsmRelation
+      : never;

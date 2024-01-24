@@ -1,4 +1,4 @@
-import { OsmChange } from "../../types";
+import type { OsmChange } from "../../types";
 import { osmFetch } from "../_osmFetch";
 import {
   createChangesetMetaXml,

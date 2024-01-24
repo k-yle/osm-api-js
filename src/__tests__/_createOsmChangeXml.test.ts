@@ -1,8 +1,8 @@
-import { describe, it, expect } from "vitest";
-import { OsmChange } from "../types";
+import { describe, expect, it } from "vitest";
+import type { OsmChange } from "../types";
 import {
-  createOsmChangeXml,
   createChangesetMetaXml,
+  createOsmChangeXml,
 } from "../api/changesets/_createOsmChangeXml";
 
 describe("createChangesetMetaXml", () => {

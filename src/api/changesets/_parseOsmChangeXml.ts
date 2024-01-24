@@ -1,11 +1,11 @@
-import {
+import type {
   OsmChange,
   OsmFeature,
   OsmNode,
   OsmRelation,
   OsmWay,
 } from "../../types";
-import { RawOsmChange, RawOsmChangeCategory } from "../_rawResponse";
+import type { RawOsmChange, RawOsmChangeCategory } from "../_rawResponse";
 import { xmlParser } from "../_xml";
 
 function common(feat: NonNullable<RawOsmChangeCategory["way"]>[0]) {

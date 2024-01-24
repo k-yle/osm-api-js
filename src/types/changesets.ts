@@ -1,4 +1,4 @@
-import { OsmFeature } from "./features";
+import type { OsmFeature } from "./features";
 
 export type ChangesetComment = {
   user: string;

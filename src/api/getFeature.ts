@@ -1,9 +1,9 @@
-import {
+import type {
   OsmFeature,
-  UtilFeatureForType,
   OsmFeatureType,
-  OsmWay,
   OsmRelation,
+  OsmWay,
+  UtilFeatureForType,
 } from "../types";
 import { osmFetch } from "./_osmFetch";
 

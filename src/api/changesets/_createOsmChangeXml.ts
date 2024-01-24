@@ -54,8 +54,9 @@ const createGroup = (csId: number, features: OsmFeature[], isCreate?: true) =>
           };
           return { ...ac, relation: [...ac.relation, feat] };
         }
-        default:
+        default: {
           return ac;
+        }
       }
     },
     { node: [] as unknown[], way: [] as unknown[], relation: [] as unknown[] }

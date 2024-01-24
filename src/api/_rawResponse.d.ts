@@ -1,4 +1,4 @@
-import { OsmFeatureType } from "../types";
+import type { OsmFeatureType } from "../types";
 
 /** @internal */
 export type RawCapabilities = {
@@ -14,10 +14,10 @@ export type RawCapabilities = {
           changesets: [{ $: { maximum_elements: string } }];
           timeout: [{ $: { seconds: string } }];
           status: [{ $: { database: "online"; api: "online"; gpx: "online" } }];
-        }
+        },
       ];
       policy: [{ imagery: [{ blacklist: { $: { regex: string } }[] }] }];
-    }
+    },
   ];
 };
 
@@ -47,10 +47,10 @@ export type RawChangesets = {
               $: { date: string; uid: string; user: string };
               text: [string];
             }[];
-          }
+          },
         ];
       }[];
-    }
+    },
   ];
 };
 
@@ -77,7 +77,7 @@ export type RawNotesSearch = {
           action: "opened" | "closed" | "commented" | "reopened";
           text: string;
           html: string;
-        }
+        },
       ];
     };
   }[];
@@ -119,6 +119,6 @@ export type RawOsmChange = {
       create?: RawOsmChangeCategory[];
       modify?: RawOsmChangeCategory[];
       delete?: RawOsmChangeCategory[];
-    }
+    },
   ];
 };

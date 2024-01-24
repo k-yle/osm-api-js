@@ -5,9 +5,10 @@ export async function sha256(text: string) {
   const data = new TextEncoder().encode(text);
   const buf = await window.crypto.subtle.digest("SHA-256", data);
 
+  // eslint-disable-next-line unicorn/prefer-code-point -- not sure if this autofix is safe
   const base64 = btoa(String.fromCharCode(...new Uint8Array(buf)));
 
-  return base64.replace(/\+/g, "-").replace(/\//g, "_").replace(/=/g, "");
+  return base64.replaceAll("+", "-").replaceAll("/", "_").replaceAll("=", "");
 }
 
 /** @internal */

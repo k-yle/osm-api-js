@@ -1,5 +1,5 @@
 import { osmFetch } from "./_osmFetch";
-import { RawCapabilities } from "./_rawResponse";
+import type { RawCapabilities } from "./_rawResponse";
 
 export type OsmCapabilities = {
   limits: {

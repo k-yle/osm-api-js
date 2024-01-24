@@ -1,5 +1,5 @@
 import { getOAuthBaseUrl } from "./helpers";
-import { LoginData, OsmOAuth2Scopes, Transaction } from "./types";
+import type { LoginData, OsmOAuth2Scopes, Transaction } from "./types";
 
 type ExchangeRawResponse =
   | {
@@ -35,14 +35,14 @@ export async function exchangeCode(
   const url = `${getOAuthBaseUrl()}/oauth2/token?${new URLSearchParams(
     qs
   ).toString()}`;
-  const req = await fetch(url, {
+  const request = await fetch(url, {
     method: "POST",
     body: "",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
     },
   });
-  const exchangeResponse: ExchangeRawResponse = await req.json();
+  const exchangeResponse: ExchangeRawResponse = await request.json();
 
   if ("error_description" in exchangeResponse) {
     throw new Error(exchangeResponse.error_description);

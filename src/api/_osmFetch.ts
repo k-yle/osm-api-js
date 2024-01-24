@@ -12,7 +12,8 @@ const toBase64 = (text: string): string => {
 /** @internal */
 export async function osmFetch<T>(
   path: string,
-  qsObj?: Record<string, any>,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  qsObject?: Record<string, any>,
   fetchOptions?: RequestInit
 ): Promise<T> {
   const { apiUrl, authHeader, basicAuth, userAgent } = getConfig();
@@ -23,7 +24,7 @@ export async function osmFetch<T>(
 
   const maybeOAuth2Token = getAuthToken() && `Bearer ${getAuthToken()}`;
 
-  let qs = new URLSearchParams(qsObj).toString();
+  let qs = new URLSearchParams(qsObject).toString();
   qs &&= `?${qs}`;
 
   const response = await fetch(`${apiUrl}/api${path}${qs}`, {

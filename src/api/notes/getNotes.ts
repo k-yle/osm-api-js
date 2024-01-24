@@ -1,6 +1,6 @@
-import { BBox, OsmNote } from "../../types";
+import type { BBox, OsmNote } from "../../types";
 import { osmFetch } from "../_osmFetch";
-import { RawNotesSearch } from "../_rawResponse";
+import type { RawNotesSearch } from "../_rawResponse";
 
 const featureToNote = (feature: RawNotesSearch["features"][0]): OsmNote => {
   const [lng, lat] = feature.geometry.coordinates;

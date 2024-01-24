@@ -1,6 +1,6 @@
-import { OsmChange } from "../../types";
+import type { OsmChange } from "../../types";
 import { osmFetch } from "../_osmFetch";
-import { RawOsmChange } from "../_rawResponse";
+import type { RawOsmChange } from "../_rawResponse";
 import { parseOsmChangeJson } from "./_parseOsmChangeXml";
 
 /** gets the osmChange file for a changeset */

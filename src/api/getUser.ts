@@ -1,4 +1,4 @@
-import { OsmOwnUser, OsmUser } from "../types";
+import type { OsmOwnUser, OsmUser } from "../types";
 import { osmFetch } from "./_osmFetch";
 
 export async function getUser(user: number): Promise<OsmUser>;

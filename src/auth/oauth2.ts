@@ -1,7 +1,7 @@
 import { createPopup } from "./createPopup";
 import { exchangeCode } from "./exchangeCode";
 import { getOAuthBaseUrl, getRandomString, sha256 } from "./helpers";
-import { LoginOptions, LoginData, Transaction } from "./types";
+import type { LoginData, LoginOptions, Transaction } from "./types";
 
 /**
  * If mode = `redirect`, this function will never resolve, and will
