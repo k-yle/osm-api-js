@@ -21,7 +21,7 @@
   "scripts": {
     "build": "rm -rf dist && tsc --emitDeclarationOnly && rm -rf dist/__tests__ && browserify -x isomorphic-fetch -s OSM src/index.ts -p tsify > dist/index.js && uglifyjs dist/index.js > dist/index.min.js",
     "lint": "eslint --format pretty --ext .ts --ignore-path .gitignore . --resolve-plugins-relative-to ./node_modules/eslint-config-kyle",
-    "test": "jest --runInBand",
+    "test": "vitest",
     "trypublish": "npm publish || true"
   },
   "engines": {
@@ -33,23 +33,15 @@
     "isomorphic-fetch": "^3.0.0"
   },
   "devDependencies": {
-    "@types/jest": "^27.4.1",
     "browserify": "^17.0.0",
     "eslint": "^8.12.0",
     "eslint-config-kyle": "^8.17.0",
-    "jest": "^27.5.1",
-    "ts-jest": "^27.1.4",
     "tsify": "^5.0.4",
     "typescript": "^4.6.3",
-    "uglify-js": "^3.15.3"
+    "uglify-js": "^3.15.3",
+    "vitest": "^1.2.1"
   },
   "eslintConfig": {
     "extends": "kyle"
-  },
-  "jest": {
-    "transform": {
-      "^.+\\.(t|j)sx?$": "ts-jest"
-    },
-    "collectCoverage": true
   }
 }
