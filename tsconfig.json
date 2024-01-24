@@ -4,11 +4,13 @@
     "esModuleInterop": true,
     "module": "commonjs",
     "target": "es2015",
-    "lib": ["es2021", "dom"],
+    "lib": ["esnext", "dom"],
     "moduleResolution": "node",
     "downlevelIteration": true,
     "declaration": true,
     "stripInternal": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": false,
     "outDir": "dist"
   },
   "include": ["src"]

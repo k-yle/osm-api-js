@@ -26,7 +26,7 @@ export function createPopup(loginUrl: string): Promise<string> {
     };
 
     // check every 0.5seconds if the popup has been closed by the user.
-    const intervalId: NodeJS.Timer = setInterval(() => {
+    const intervalId = setInterval(() => {
       if (popup.closed) {
         if (!resolved) reject(new Error("Cancelled"));
         clearInterval(intervalId);

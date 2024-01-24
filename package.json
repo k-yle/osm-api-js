@@ -33,15 +33,30 @@
     "isomorphic-fetch": "^3.0.0"
   },
   "devDependencies": {
+    "@types/node": "^20.11.6",
     "browserify": "^17.0.0",
-    "eslint": "^8.12.0",
-    "eslint-config-kyle": "^8.17.0",
+    "eslint": "^8.56.0",
+    "eslint-config-kyle": "^17.5.3",
     "tsify": "^5.0.4",
-    "typescript": "^4.6.3",
+    "typescript": "^5.3.3",
     "uglify-js": "^3.15.3",
     "vitest": "^1.2.1"
   },
   "eslintConfig": {
+    "settings": {
+      "jest": {
+        "version": 28
+      }
+    },
+    "rules": {
+      "quotes": [
+        2,
+        "double"
+      ]
+    },
     "extends": "kyle"
+  },
+  "prettier": {
+    "trailingComma": "es5"
   }
 }
