@@ -4,3 +4,5 @@ export type BBox = readonly [
   maxLng: number,
   maxLat: number
 ];
+
+export type Tags = Record<string, string>;

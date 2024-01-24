@@ -1,5 +1,5 @@
 import { XMLBuilder } from "fast-xml-parser";
-import { OsmChange, OsmFeature } from "../../types";
+import type { OsmChange, OsmFeature, Tags } from "../../types";
 
 const builder = new XMLBuilder({
   ignoreAttributes: false,
@@ -8,8 +8,6 @@ const builder = new XMLBuilder({
   suppressEmptyNode: true,
   suppressBooleanAttributes: false,
 });
-
-type Tags = Record<string, string>;
 
 /** @internal */
 export function createChangesetMetaXml(tags: Tags) {
