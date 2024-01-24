@@ -1,6 +1,6 @@
 {
   "name": "osm-api",
-  "version": "1.0.6",
+  "version": "2.0.0",
   "contributors": [
     "Kyle Hensel (https://github.com/k-yle)"
   ],
@@ -19,18 +19,17 @@
   ],
   "repository": "https://github.com/k-yle/osm-api-js",
   "scripts": {
-    "build": "rm -rf dist && tsc --emitDeclarationOnly && rm -rf dist/__tests__ && browserify -x isomorphic-fetch -s OSM src/index.ts -p tsify > dist/index.js && uglifyjs dist/index.js > dist/index.min.js",
+    "build": "rm -rf dist && tsc --emitDeclarationOnly && rm -rf dist/__tests__ && browserify -s OSM src/index.ts -p tsify > dist/index.js && uglifyjs dist/index.js > dist/index.min.js",
     "lint": "eslint --format pretty --ext .ts --ignore-path .gitignore . --resolve-plugins-relative-to ./node_modules/eslint-config-kyle",
     "test": "vitest",
     "trypublish": "npm publish || true"
   },
   "engines": {
-    "node": ">=12"
+    "node": ">=18"
   },
   "dependencies": {
     "@types/geojson": "^7946.0.13",
-    "fast-xml-parser": "^4.3.3",
-    "isomorphic-fetch": "^3.0.0"
+    "fast-xml-parser": "^4.3.3"
   },
   "devDependencies": {
     "@types/node": "^20.11.6",

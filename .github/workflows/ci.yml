@@ -43,7 +43,7 @@ jobs:
       #     github-token: ${{ secrets.github_token }}
 
       - name: 📦 Publish
-        if: ${{ github.ref == 'refs/heads/main' && matrix['node-version'] == '16.x' }}
+        if: ${{ github.ref == 'refs/heads/main' && matrix['node-version'] == '20.x' }}
         run: |
           npm config set //registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN
           npm run trypublish
