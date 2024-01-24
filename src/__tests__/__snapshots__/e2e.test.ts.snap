@@ -11,11 +11,7 @@ Object {
     "maxWayNodes": 2000,
   },
   "policy": Object {
-    "imageryBlacklist": Array [
-      ".*\\\\.google(apis)?\\\\..*/.*",
-      "http://xdworld\\\\.vworld\\\\.kr:8080/.*",
-      ".*\\\\.here\\\\.com[/:].*",
-    ],
+    "imageryBlacklist": Array [],
   },
 }
 `;

@@ -29,9 +29,10 @@ export async function getCapabilities(): Promise<OsmCapabilities> {
       maxTimeout: +raw.osm[0].api[0].timeout[0].$.seconds,
     },
     policy: {
-      imageryBlacklist: raw.osm[0].policy[0].imagery[0].blacklist.map(
-        (item) => item.$.regex
-      ),
+      imageryBlacklist:
+        raw.osm[0].policy[0].imagery[0].blacklist?.map(
+          (item) => item.$.regex
+        ) || [],
     },
   };
 
