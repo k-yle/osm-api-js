@@ -288,12 +288,12 @@ Array [
 exports[`end to end tests getNotesForQuery 1`] = `
 Array [
   Object {
-    "close_url": "https://master.apis.dev.openstreetmap.org/api/0.6/notes/28530/close.json",
-    "comment_url": "https://master.apis.dev.openstreetmap.org/api/0.6/notes/28530/comment.json",
+    "close_url": "https://master.apis.dev.openstreetmap.org/api/0.6/notes/55251/close.json",
+    "comment_url": "https://master.apis.dev.openstreetmap.org/api/0.6/notes/55251/comment.json",
     "comments": Array [
       Object {
         "action": "opened",
-        "date": "2021-12-16 09:24:43 UTC",
+        "date": "2024-01-24 06:33:43 UTC",
         "html": "<p>cycleway=no</p>",
         "text": "cycleway=no",
         "uid": 12248,
@@ -301,14 +301,14 @@ Array [
         "user_url": "https://master.apis.dev.openstreetmap.org/user/kylenz_testing",
       },
     ],
-    "date_created": "2021-12-16 09:24:43 UTC",
-    "id": 28530,
+    "date_created": "2024-01-24 06:33:43 UTC",
+    "id": 55251,
     "location": Object {
-      "lat": -36.8298622,
-      "lng": 174.7462971,
+      "lat": -36.8300694,
+      "lng": 174.7460568,
     },
     "status": "open",
-    "url": "https://master.apis.dev.openstreetmap.org/api/0.6/notes/28530.json",
+    "url": "https://master.apis.dev.openstreetmap.org/api/0.6/notes/55251.json",
   },
 ]
 `;
@@ -323,7 +323,7 @@ Object {
     },
   },
   "changesets": Object {
-    "count": 6,
+    "count": 15,
   },
   "contributor_terms": Object {
     "agreed": true,
