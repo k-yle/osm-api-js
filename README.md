@@ -39,7 +39,7 @@ await OSM.createChangesetComment(114733070, "Thanks for your edit!");
 If you don't use a bundler, you can also include the module using a `<script>` tag:
 
 ```html
-<script src="https://unpkg.com/osm-api@1"></script>
+<script src="https://unpkg.com/osm-api@2"></script>
 <script>
   OSM.getFeature("way", 23906749);
   OSM.login({ ... });

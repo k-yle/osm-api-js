@@ -6,7 +6,8 @@ export type OsmUser = {
   account_created: Date;
   description: string;
   contributor_terms: { agreed: boolean; pd: boolean };
-  img: { href: string };
+  /** may be undefined if the user has no profile photo */
+  img?: { href: string };
   roles: OsmUserRole[];
   changesets: { count: number };
   traces: { count: number };
