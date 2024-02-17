@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## 2.1.1 (2024-02-18)
+
+- Fix bug in v2.1.0, and also apply new logic osmChange parser
+
 ## 2.1.0 (2024-02-17)
 
 - Change how changeset tags are embedded into osmChange files ([more info](https://community.osm.org/t/108670/8))

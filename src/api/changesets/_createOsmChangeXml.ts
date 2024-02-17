@@ -72,7 +72,9 @@ export function createOsmChangeXml(
     osmChange: {
       $version: "0.6",
       $generator: "osm-api-js",
-      changeset: metadata,
+      changeset: metadata
+        ? { tag: Object.entries(metadata).map(([$k, $v]) => ({ $k, $v })) }
+        : undefined,
       create: [createGroup(csId, diff.create, true)],
       modify: [createGroup(csId, diff.modify)],
       delete: [{ "$if-unused": true, ...createGroup(csId, diff.delete) }],

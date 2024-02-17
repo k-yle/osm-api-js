@@ -41,8 +41,8 @@ describe("_createOsmChangeXml", () => {
     expect(xml).toMatchInlineSnapshot(`
       "<osmChange version="0.6" generator="osm-api-js">
         <changeset>
-          <created_by>me</created_by>
-          <comment>add café</comment>
+          <tag k="created_by" v="me"/>
+          <tag k="comment" v="add café"/>
         </changeset>
         <create>
           <node id="-1" version="0" changeset="123" lat="-36" lon="174">

@@ -95,21 +95,21 @@ type RawFeature = {
 };
 
 /** @internal */
+export type RawXmlTags = { tag?: { $: { k: string; v: string } }[] };
+
+/** @internal */
 type RawOsmChangeCategory = {
-  node?: {
+  node?: (RawXmlTags & {
     $: RawFeature & { lat: string; lon: string };
-    tag?: { $: { k: string; v: string } }[];
-  }[];
-  way?: {
+  })[];
+  way?: (RawXmlTags & {
     $: RawFeature;
-    tag?: { $: { k: string; v: string } }[];
     nd?: { $: { ref: string } }[];
-  }[];
-  relation?: {
+  })[];
+  relation?: (RawXmlTags & {
     $: RawFeature;
-    tag?: { $: { k: string; v: string } }[];
     member?: { $: { type: OsmFeatureType; ref: string; role: string } }[];
-  }[];
+  })[];
 };
 
 /** @internal */
@@ -119,6 +119,7 @@ export type RawOsmChange = {
       create?: RawOsmChangeCategory[];
       modify?: RawOsmChangeCategory[];
       delete?: RawOsmChangeCategory[];
+      changeset?: [RawXmlTags];
     },
   ];
 };

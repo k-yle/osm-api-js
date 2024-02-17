@@ -4,9 +4,19 @@ import type {
   OsmNode,
   OsmRelation,
   OsmWay,
+  Tags,
 } from "../../types";
-import type { RawOsmChange, RawOsmChangeCategory } from "../_rawResponse";
+import type {
+  RawOsmChange,
+  RawOsmChangeCategory,
+  RawXmlTags,
+} from "../_rawResponse";
 import { xmlParser } from "../_xml";
+
+function parseTags(feat: RawXmlTags | undefined): Tags | undefined {
+  if (!feat?.tag) return undefined;
+  return Object.fromEntries(feat.tag.map((tag) => [tag.$.k, tag.$.v]));
+}
 
 function common(feat: NonNullable<RawOsmChangeCategory["way"]>[0]) {
   return {
@@ -16,9 +26,7 @@ function common(feat: NonNullable<RawOsmChangeCategory["way"]>[0]) {
     uid: +feat.$.uid,
     user: feat.$.user,
     version: +feat.$.version,
-    tags: feat.tag
-      ? Object.fromEntries(feat.tag.map((tag) => [tag.$.k, tag.$.v]))
-      : undefined,
+    tags: parseTags(feat),
   };
 }
 
@@ -62,12 +70,17 @@ const mapSection = (c: RawOsmChangeCategory): OsmFeature[] => {
 };
 
 /** @internal */
-export function parseOsmChangeJson(raw: RawOsmChange): OsmChange {
-  return {
+export function parseOsmChangeJson(raw: RawOsmChange) {
+  const changesetTags = parseTags(raw.osmChange[0].changeset?.[0]);
+
+  const diff: OsmChange & { changeset?: Tags } = {
     create: raw.osmChange[0].create?.flatMap(mapSection) || [],
     modify: raw.osmChange[0].modify?.flatMap(mapSection) || [],
     delete: raw.osmChange[0].delete?.flatMap(mapSection) || [],
   };
+  if (changesetTags) diff.changeset = changesetTags;
+
+  return diff;
 }
 
 // not marked as internal - this one can be used by consumers
