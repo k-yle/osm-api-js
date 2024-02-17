@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## 2.1.0 (2024-02-17)
+
+- Change how changeset tags are embedded into osmChange files ([more info](https://community.osm.org/t/108670/8))
+
 ## 2.0.0 (2024-01-25)
 
 - 💥 BREAKING CHANGE: Require nodejs v18 or newer. This allows the `fetch` polyfill to be removed.
