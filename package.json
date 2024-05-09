@@ -22,7 +22,7 @@
     "build": "rm -rf dist && tsc --emitDeclarationOnly && rm -rf dist/__tests__ && browserify -s OSM src/index.ts -p tsify > dist/index.js && uglifyjs dist/index.js > dist/index.min.js",
     "lint": "eslint --format pretty --ext .ts --ignore-path .gitignore . --resolve-plugins-relative-to ./node_modules/eslint-config-kyle",
     "test": "vitest",
-    "trypublish": "npm publish || true"
+    "trypublish": "npm publish --provenance || true"
   },
   "engines": {
     "node": ">=18"
