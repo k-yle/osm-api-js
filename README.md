@@ -61,7 +61,7 @@ All methods return promises. Examples requests and responses are available for a
   - [`getWaysForNode`](./examples/getWaysForNode.md)
   - [`getRelationsForElement`](./examples/getRelationsForElement.md)
 - Changesets
-  - [`listChangesets`](./examples/getFeature.md)
+  - [`listChangesets`](./examples/listChangesets.md)
   - [`getChangeset`](./examples/getChangeset.md)
   - [`getChangesetDiff`](./examples/getChangesetDiff.md)
   - 🔑 [`uploadChangeset`](./examples/uploadChangeset.md)

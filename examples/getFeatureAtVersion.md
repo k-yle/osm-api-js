@@ -1,9 +1,9 @@
-# getFeature
+# getFeatureAtVersion
 
 ```ts
-import { getFeature } from "osm-api";
+import { getFeatureAtVersion } from "osm-api";
 
-await getFeature("node", 1234);
+await getFeatureAtVersion("node", 123456789, 5);
 ```
 
 Response:

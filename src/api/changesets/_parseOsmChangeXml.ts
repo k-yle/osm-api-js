@@ -84,7 +84,9 @@ export function parseOsmChangeJson(raw: RawOsmChange) {
 }
 
 // not marked as internal - this one can be used by consumers
-export function parseOsmChangeXml(xml: string): OsmChange {
+export function parseOsmChangeXml(
+  xml: string
+): OsmChange & { changeset?: Tags } {
   const raw = xmlParser.parse(xml);
   return parseOsmChangeJson(raw);
 }
