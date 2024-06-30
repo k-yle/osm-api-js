@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Fix crash when using the `getChangeset` API
+
 ## 2.1.1 (2024-02-18)
 
 - Fix bug in v2.1.0, and also apply new logic osmChange parser

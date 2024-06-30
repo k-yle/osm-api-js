@@ -18,7 +18,7 @@ const mapRawChangeset = (
   uid: +raw.$.uid,
   user: raw.$.user,
   tags: Object.fromEntries(raw.tag.map((tag) => [tag.$.k, tag.$.v])),
-  discussion: raw.discussion?.[0].comment.map((comment) => ({
+  discussion: raw.discussion?.[0].comment?.map((comment) => ({
     date: new Date(comment.$.date),
     user: comment.$.user,
     uid: comment.$.uid,
@@ -74,9 +74,10 @@ export async function getChangeset(
   id: number,
   includeDiscussion = true
 ): Promise<Changeset> {
-  const raw = await osmFetch<RawChangesets>(`/0.6/changeset/${id}`, {
-    include_discussion: includeDiscussion,
-  });
+  const raw = await osmFetch<RawChangesets>(
+    `/0.6/changeset/${id}`,
+    includeDiscussion ? { include_discussion: 1 } : {}
+  );
 
   return raw.osm[0].changeset!.map(mapRawChangeset)[0];
 }

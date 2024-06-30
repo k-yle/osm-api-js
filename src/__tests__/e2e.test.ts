@@ -2,6 +2,7 @@ import { beforeAll, describe, expect, it } from "vitest";
 import {
   configure,
   getCapabilities,
+  getChangeset,
   getChangesetDiff,
   getFeature,
   getNotesForQuery,
@@ -54,6 +55,14 @@ describe("end to end tests", () => {
         display_name: "kylenz_testing",
       })
     ).toMatchSnapshot();
+  });
+
+  it("getChangeset (no discussion)", async () => {
+    expect(await getChangeset(227200, false)).toMatchSnapshot();
+  });
+
+  it("getChangeset (with discussion)", async () => {
+    expect(await getChangeset(227200, true)).toMatchSnapshot();
   });
 
   it("getChangesetDiff", async () => {

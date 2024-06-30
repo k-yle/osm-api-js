@@ -16,6 +16,73 @@ exports[`end to end tests > getCapabilities 1`] = `
 }
 `;
 
+exports[`end to end tests > getChangeset (no discussion) 1`] = `
+{
+  "changes_count": 10,
+  "closed_at": 2021-12-16T09:29:15.000Z,
+  "comments_count": 2,
+  "created_at": 2021-12-16T09:29:14.000Z,
+  "discussion": undefined,
+  "id": 227200,
+  "max_lat": -36.8801278,
+  "max_lon": 174.7400986,
+  "min_lat": -36.8809762,
+  "min_lon": 174.739496,
+  "open": false,
+  "tags": {
+    "changesets_count": "2",
+    "comment": "create node, way, and relation. modify way",
+    "created_by": "iD 2.20.2",
+    "host": "https://master.apis.dev.openstreetmap.org/edit",
+    "imagery_used": "LINZ NZ Aerial Imagery",
+    "locale": "en-NZ",
+    "warnings:disconnected_way:highway": "1",
+  },
+  "uid": 12248,
+  "user": "kylenz_testing",
+}
+`;
+
+exports[`end to end tests > getChangeset (with discussion) 1`] = `
+{
+  "changes_count": 10,
+  "closed_at": 2021-12-16T09:29:15.000Z,
+  "comments_count": 2,
+  "created_at": 2021-12-16T09:29:14.000Z,
+  "discussion": [
+    {
+      "date": 2024-06-30T08:59:15.000Z,
+      "text": "­",
+      "uid": "12248",
+      "user": "kylenz_testing",
+    },
+    {
+      "date": 2024-06-30T08:59:55.000Z,
+      "text": "sup bro",
+      "uid": "12248",
+      "user": "kylenz_testing",
+    },
+  ],
+  "id": 227200,
+  "max_lat": -36.8801278,
+  "max_lon": 174.7400986,
+  "min_lat": -36.8809762,
+  "min_lon": 174.739496,
+  "open": false,
+  "tags": {
+    "changesets_count": "2",
+    "comment": "create node, way, and relation. modify way",
+    "created_by": "iD 2.20.2",
+    "host": "https://master.apis.dev.openstreetmap.org/edit",
+    "imagery_used": "LINZ NZ Aerial Imagery",
+    "locale": "en-NZ",
+    "warnings:disconnected_way:highway": "1",
+  },
+  "uid": 12248,
+  "user": "kylenz_testing",
+}
+`;
+
 exports[`end to end tests > getChangesetDiff 1`] = `
 {
   "create": [
@@ -382,7 +449,7 @@ exports[`end to end tests > listChangesets 1`] = `
   {
     "changes_count": 10,
     "closed_at": 2021-12-16T09:29:15.000Z,
-    "comments_count": 0,
+    "comments_count": 2,
     "created_at": 2021-12-16T09:29:14.000Z,
     "discussion": undefined,
     "id": 227200,

@@ -43,7 +43,7 @@ export type RawChangesets = {
         tag: { $: { k: string; v: string } }[];
         discussion?: [
           {
-            comment: {
+            comment?: {
               $: { date: string; uid: string; user: string };
               text: [string];
             }[];
