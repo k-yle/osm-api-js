@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## 2.1.3 (2024-07-30)
+
+- Update dependencies to satisfy `npm audit`
+
 ## 2.1.2 (2024-06-30)
 
 - Fix crash when using the `getChangeset` API
