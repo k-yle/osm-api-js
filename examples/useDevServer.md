@@ -1,6 +1,6 @@
 # Using the Development Server
 
-For testing and experimenting with the API, use the development server documented [here](https://wiki.openstreetmap.org/wiki/API_v0.6). It uses a separate database with less data, allowing you to test freely without concerns.
+For experimenting with the API, use the development server documented [here](https://wiki.openstreetmap.org/wiki/API_v0.6). It uses a separate database with less data, allowing you to test freely without concerns.
 
 1. Create an account and application key on the [development server](https://master.apis.dev.openstreetmap.org/oauth2/applications).
 
