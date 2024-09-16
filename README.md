@@ -73,7 +73,7 @@ All methods return promises. Examples requests and responses are available for a
 - Misc
   - [`getCapabilities()`](./examples/getCapabilities.md)
   - [`getMapData`](./examples/getMapData.md)
-  - [`Using the Development Server`](./examples/useDevServer.md)
+  - [Using the Development Server](./examples/dev-server.md)
 - Authentication (browser only, not available in NodeJS)
   - `login`
   - `logout`
