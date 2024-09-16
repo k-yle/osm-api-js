@@ -80,6 +80,7 @@ All methods return promises. Examples requests and responses are available for a
   - `isLoggedIn`
   - 🔑 `getAuthToken()`
   - `authReady`
+  - [`getPermissions()`](./examples/getPermissions.md)
 
 ## Authentication in the browser
 

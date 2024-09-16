@@ -3,6 +3,7 @@ export type OsmOAuth2Scopes =
   | "write_prefs"
   | "write_diary"
   | "write_api"
+  | "write_redactions"
   | "read_gpx"
   | "write_gpx"
   | "write_notes";

@@ -7,6 +7,7 @@ import {
   getChangesetDiff,
   getFeature,
   getNotesForQuery,
+  getPermissions,
   getUIdFromDisplayName,
   getUser,
   listChangesets,
@@ -35,6 +36,10 @@ describe("end to end tests", () => {
 
   it("getCapabilities", async () => {
     expect(await getCapabilities()).toMatchSnapshot();
+  });
+
+  it("getPermissions", async () => {
+    expect(await getPermissions()).toMatchSnapshot();
   });
 
   it.each`
