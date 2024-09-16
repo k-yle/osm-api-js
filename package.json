@@ -20,7 +20,7 @@
   "repository": "https://github.com/k-yle/osm-api-js",
   "scripts": {
     "build": "rm -rf dist && tsc --emitDeclarationOnly && rm -rf dist/__tests__ && browserify -s OSM src/index.ts -p tsify > dist/index.js && uglifyjs dist/index.js > dist/index.min.js",
-    "lint": "eslint --format pretty --ext .ts --ignore-path .gitignore . --resolve-plugins-relative-to ./node_modules/eslint-config-kyle",
+    "lint": "eslint .",
     "test": "vitest",
     "trypublish": "npm publish --provenance || true"
   },
@@ -32,28 +32,14 @@
     "fast-xml-parser": "^4.4.1"
   },
   "devDependencies": {
-    "@types/node": "^20.11.6",
+    "@types/node": "^22.5.5",
     "browserify": "^17.0.0",
-    "eslint": "^8.56.0",
-    "eslint-config-kyle": "^17.5.3",
+    "eslint": "^9.10.0",
+    "eslint-config-kyle": "^25.0.0-beta2",
     "tsify": "^5.0.4",
-    "typescript": "^5.3.3",
-    "uglify-js": "^3.15.3",
-    "vitest": "^1.2.1"
-  },
-  "eslintConfig": {
-    "settings": {
-      "jest": {
-        "version": 28
-      }
-    },
-    "rules": {
-      "quotes": [
-        2,
-        "double"
-      ]
-    },
-    "extends": "kyle"
+    "typescript": "^5.6.2",
+    "uglify-js": "^3.19.3",
+    "vitest": "^2.1.1"
   },
   "prettier": {
     "trailingComma": "es5"
