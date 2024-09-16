@@ -9,6 +9,7 @@ import {
   getMessage,
   getNotesForQuery,
   getPermissions,
+  getPreferences,
   getUIdFromDisplayName,
   getUser,
   listChangesets,
@@ -95,6 +96,10 @@ describe("end to end tests", () => {
 
     it("getMessage", async () => {
       expect(await getMessage(79)).toMatchSnapshot();
+    });
+
+    it("getPreferences", async () => {
+      expect(await getPreferences()).toMatchSnapshot();
     });
   });
 });

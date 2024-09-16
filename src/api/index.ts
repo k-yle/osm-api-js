@@ -1,6 +1,7 @@
 export * from "./changesets";
 export * from "./messages";
 export * from "./notes";
+export * from "./preferences";
 
 export * from "./getCapabilities";
 export * from "./getFeature";

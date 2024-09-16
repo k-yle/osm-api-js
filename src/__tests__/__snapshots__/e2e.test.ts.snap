@@ -15,6 +15,8 @@ exports[`end to end tests > APIs requiring authentication > getMessage 1`] = `
 }
 `;
 
+exports[`end to end tests > APIs requiring authentication > getPreferences 1`] = `{}`;
+
 exports[`end to end tests > APIs requiring authentication > listMessages 1`] = `
 [
   {

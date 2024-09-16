@@ -76,6 +76,10 @@ All methods return promises. Examples requests and responses are available for a
   - 🔑 [`listMessages()`](./examples/listMessages.md)
   - 🔑 [`sendMessage()`](./examples/sendMessage.md)
   - 🔑 [`updateMessageReadStatus()`](./examples/updateMessageReadStatus.md)
+- Preferences
+  - 🔑 [`getPreferences()`](./examples/getPreferences.md)
+  - 🔑 [`updatePreferences()`](./examples/updatePreferences.md)
+  - 🔑 [`deletePreferences()`](./examples/deletePreferences.md)
 - Misc
   - [`getApiCapabilities()`](./examples/getApiCapabilities.md)
   - [`getMapData`](./examples/getMapData.md)
