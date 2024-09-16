@@ -1,34 +1,24 @@
 import type { BBox, Changeset } from "../../types";
 import { osmFetch } from "../_osmFetch";
-import type { RawChangesets } from "../_rawResponse";
+import type { RawChangeset } from "../_rawResponse";
 
-const mapRawChangeset = (
-  raw: NonNullable<RawChangesets["osm"][0]["changeset"]>[0]
-): Changeset => ({
-  id: +raw.$.id,
-  created_at: new Date(raw.$.created_at),
-  closed_at: new Date(raw.$.closed_at),
-  open: raw.$.open === "true",
-  comments_count: +raw.$.comments_count,
-  changes_count: +raw.$.changes_count,
-  min_lat: +raw.$.min_lat,
-  min_lon: +raw.$.min_lon,
-  max_lat: +raw.$.max_lat,
-  max_lon: +raw.$.max_lon,
-  uid: +raw.$.uid,
-  user: raw.$.user,
-  tags: Object.fromEntries(raw.tag.map((tag) => [tag.$.k, tag.$.v])),
-  discussion: raw.discussion?.[0].comment?.map((comment) => ({
-    date: new Date(comment.$.date),
-    user: comment.$.user,
-    uid: comment.$.uid,
-    text: comment.text[0],
+const mapRawChangeset = ({ comments, ...raw }: RawChangeset): Changeset => ({
+  ...raw,
+  created_at: new Date(raw.created_at),
+  closed_at: raw.closed_at ? new Date(raw.closed_at) : undefined!,
+
+  discussion: comments?.map((comment) => ({
+    ...comment,
+    date: new Date(comment.date),
+    uid: `${comment.uid}`,
   })),
 });
 
 export type ListChangesetOptions = {
   /** Find changesets within the given bounding box */
   bbox?: BBox | string;
+  /** Limits the number of changesets returned @default 100 */
+  limit?: number;
   /** if specified, only opened or closed changesets will be returned */
   only?: "opened" | "closed";
   /** Find changesets by the user. You cannot supply both `user` and `display_name` */
@@ -61,12 +51,15 @@ export async function listChangesets(
 ): Promise<Changeset[]> {
   const { only, ...otherOptions } = options;
 
-  const raw = await osmFetch<RawChangesets>("/0.6/changesets", {
-    ...(only && { [only]: true }),
-    ...otherOptions,
-  });
+  const raw = await osmFetch<{ changesets: RawChangeset[] }>(
+    "/0.6/changesets.json",
+    {
+      ...(only && { [only]: true }),
+      ...otherOptions,
+    }
+  );
 
-  return raw.osm[0].changeset?.map(mapRawChangeset) || [];
+  return raw.changesets.map(mapRawChangeset);
 }
 
 /** get a single changeset */
@@ -74,10 +67,10 @@ export async function getChangeset(
   id: number,
   includeDiscussion = true
 ): Promise<Changeset> {
-  const raw = await osmFetch<RawChangesets>(
-    `/0.6/changeset/${id}`,
+  const raw = await osmFetch<{ changeset: RawChangeset }>(
+    `/0.6/changeset/${id}.json`,
     includeDiscussion ? { include_discussion: 1 } : {}
   );
 
-  return raw.osm[0].changeset!.map(mapRawChangeset)[0];
+  return mapRawChangeset(raw.changeset);
 }

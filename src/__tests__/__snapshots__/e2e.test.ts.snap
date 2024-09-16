@@ -105,15 +105,19 @@ exports[`end to end tests > getChangeset (with discussion) 1`] = `
   "discussion": [
     {
       "date": 2024-06-30T08:59:15.000Z,
+      "id": 736,
       "text": "­",
       "uid": "12248",
       "user": "kylenz_testing",
+      "visible": true,
     },
     {
       "date": 2024-06-30T08:59:55.000Z,
+      "id": 737,
       "text": "sup bro",
       "uid": "12248",
       "user": "kylenz_testing",
+      "visible": true,
     },
   ],
   "id": 227200,

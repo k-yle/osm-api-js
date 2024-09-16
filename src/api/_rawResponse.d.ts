@@ -1,36 +1,17 @@
-import type { OsmFeatureType } from "../types";
+import type { Changeset, ChangesetComment, OsmFeatureType } from "../types";
 
 /** @internal */
-export type RawChangesets = {
-  osm: [
-    {
-      changeset?: {
-        $: {
-          id: string;
-          created_at: string;
-          closed_at: string;
-          open: string;
-          user: string;
-          uid: string;
-          min_lat: string;
-          min_lon: string;
-          max_lat: string;
-          max_lon: string;
-          comments_count: string;
-          changes_count: string;
-        };
-        tag: { $: { k: string; v: string } }[];
-        discussion?: [
-          {
-            comment?: {
-              $: { date: string; uid: string; user: string };
-              text: [string];
-            }[];
-          },
-        ];
-      }[];
-    },
-  ];
+export type RawChangeset = Omit<
+  Changeset,
+  "discussion" | "created_at" | "closed_at"
+> & {
+  created_at: string;
+  closed_at?: string;
+  comments?: (Omit<ChangesetComment, "date" | "uid"> & {
+    /** ISO Date */
+    date: string;
+    uid: number;
+  })[];
 };
 
 /** @internal */
