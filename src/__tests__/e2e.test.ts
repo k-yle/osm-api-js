@@ -6,11 +6,13 @@ import {
   getChangeset,
   getChangesetDiff,
   getFeature,
+  getMessage,
   getNotesForQuery,
   getPermissions,
   getUIdFromDisplayName,
   getUser,
   listChangesets,
+  listMessages,
 } from "..";
 
 /**
@@ -23,10 +25,13 @@ const GribblehirstBbox = <const>[
   174.738948, -36.880984, 174.741083, -36.880065,
 ];
 
+const auth = process.env.OSM_AUTH;
+
 describe("end to end tests", () => {
   beforeAll(() => {
     configure({
       apiUrl: "https://master.apis.dev.openstreetmap.org",
+      authHeader: auth,
     });
   });
 
@@ -81,5 +86,15 @@ describe("end to end tests", () => {
 
   it("getNotesForQuery", async () => {
     expect(await getNotesForQuery({ q: "cycleway" })).toMatchSnapshot();
+  });
+
+  (auth ? describe : describe.skip)("APIs requiring authentication", () => {
+    it("listMessages", async () => {
+      expect(await listMessages("outbox")).toMatchSnapshot();
+    });
+
+    it("getMessage", async () => {
+      expect(await getMessage(79)).toMatchSnapshot();
+    });
   });
 });

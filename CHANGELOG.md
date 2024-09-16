@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Added 5 new functions for the new messaging API
 - Added a new option `bbox` to `getNotesForQuery`
 - Added a new option `limit` to `listChangesets`
 - Added new function `getPermissions`

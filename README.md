@@ -70,6 +70,12 @@ All methods return promises. Examples requests and responses are available for a
   - [`getUser`](./examples/getUser.md)
   - [`getUsers`](./examples/getUsers.md)
   - [`getUIdFromDisplayName`](./examples/getUIdFromDisplayName.md)
+- Messaging
+  - 🔑 [`deleteMessage()`](./examples/deleteMessage.md)
+  - 🔑 [`getMessage()`](./examples/getMessage.md)
+  - 🔑 [`listMessages()`](./examples/listMessages.md)
+  - 🔑 [`sendMessage()`](./examples/sendMessage.md)
+  - 🔑 [`updateMessageReadStatus()`](./examples/updateMessageReadStatus.md)
 - Misc
   - [`getApiCapabilities()`](./examples/getApiCapabilities.md)
   - [`getMapData`](./examples/getMapData.md)

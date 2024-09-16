@@ -1,5 +1,36 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`end to end tests > APIs requiring authentication > getMessage 1`] = `
+{
+  "body": "\`markdown\` [formatting](https://example.com)",
+  "body_format": "markdown",
+  "deleted": false,
+  "from_display_name": "kylenz_testing",
+  "from_user_id": 12248,
+  "id": 79,
+  "sent_on": "2024-09-16T11:56:40Z",
+  "title": "helooooo",
+  "to_display_name": "kylenz_testing",
+  "to_user_id": 12248,
+}
+`;
+
+exports[`end to end tests > APIs requiring authentication > listMessages 1`] = `
+[
+  {
+    "body_format": "markdown",
+    "deleted": false,
+    "from_display_name": "kylenz_testing",
+    "from_user_id": 12248,
+    "id": 79,
+    "sent_on": "2024-09-16T11:56:40Z",
+    "title": "helooooo",
+    "to_display_name": "kylenz_testing",
+    "to_user_id": 12248,
+  },
+]
+`;
+
 exports[`end to end tests > getApiCapabilities 1`] = `
 {
   "api": {

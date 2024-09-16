@@ -1,4 +1,6 @@
 export type OsmOAuth2Scopes =
+  | "consume_messages"
+  | "send_messages"
   | "read_prefs"
   | "write_prefs"
   | "write_diary"
