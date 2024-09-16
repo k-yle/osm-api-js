@@ -73,6 +73,7 @@ All methods return promises. Examples requests and responses are available for a
 - Misc
   - [`getCapabilities()`](./examples/getCapabilities.md)
   - [`getMapData`](./examples/getMapData.md)
+  - [Using the Development Server](./examples/dev-server.md)
 - Authentication (browser only, not available in NodeJS)
   - `login`
   - `logout`
@@ -171,3 +172,13 @@ OSM.configure({ basicAuth: { username: "...", password: "..." } });
 // Example:
 await OSM.createChangesetComment(114733070, "Thanks for your edit!");
 ```
+
+## Comparison with osm-request
+
+This library offers several advantages over [osm-request](https://github.com/osmlab/osm-request):
+
+1. **TypeScript support**: osm-api-js is built with TypeScript, providing better type safety and developer experience.
+2. **Simpler API**: The API is designed to be more straightforward and easier to use.
+3. **Smaller bundle size**: With fewer dependencies, osm-api-js has a noticeably smaller bundle size.
+
+While osm-request has been revived, osm-api-js was created when osm-request was abandoned and lacked OAuth 2 support.
