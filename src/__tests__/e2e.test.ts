@@ -1,6 +1,7 @@
 import { beforeAll, describe, expect, it } from "vitest";
 import {
   configure,
+  getApiCapabilities,
   getCapabilities,
   getChangeset,
   getChangesetDiff,
@@ -26,6 +27,10 @@ describe("end to end tests", () => {
     configure({
       apiUrl: "https://master.apis.dev.openstreetmap.org",
     });
+  });
+
+  it("getApiCapabilities", async () => {
+    expect(await getApiCapabilities()).toMatchSnapshot();
   });
 
   it("getCapabilities", async () => {

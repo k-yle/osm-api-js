@@ -1,6 +1,66 @@
 import { osmFetch } from "./_osmFetch";
-import type { RawCapabilities } from "./_rawResponse";
 
+export type ApiStatus = "online" | "offline";
+
+export type ApiCapabilities = {
+  version: string;
+  generator: string;
+  copyright: string;
+  attribution: string;
+  license: string;
+  api: {
+    version: {
+      minimum: string;
+      maximum: string;
+    };
+    area: {
+      maximum: number;
+    };
+    note_area: {
+      maximum: number;
+    };
+    tracepoints: {
+      per_page: number;
+    };
+    waynodes: {
+      maximum: number;
+    };
+    relationmembers: {
+      maximum: number;
+    };
+    changesets: {
+      maximum_elements: number;
+      default_query_limit: number;
+      maximum_query_limit: number;
+    };
+    notes: {
+      default_query_limit: number;
+      maximum_query_limit: number;
+    };
+    timeout: {
+      seconds: number;
+    };
+    status: {
+      database: ApiStatus;
+      api: ApiStatus;
+      gpx: ApiStatus;
+    };
+  };
+  policy: {
+    imagery: {
+      blacklist: { regex: string }[];
+    };
+  };
+};
+
+/** This API provides information about the capabilities and limitations of the current API. */
+export async function getApiCapabilities(): Promise<ApiCapabilities> {
+  return osmFetch<ApiCapabilities>("/capabilities.json");
+}
+
+// ---------------------------------------------------------------------- //
+
+/** @deprecated Use {@link getApiCapabilities} instead */
 export type OsmCapabilities = {
   limits: {
     maxArea: number;
@@ -15,24 +75,25 @@ export type OsmCapabilities = {
   };
 };
 
-/** This API call provides information about the capabilities and limitations of the current API. */
+/**
+ * @deprecated Use {@link getApiCapabilities} instead. This method was
+ * created before the API supported JSON, and it does not contain every
+ * field.
+ */
 export async function getCapabilities(): Promise<OsmCapabilities> {
-  const raw = await osmFetch<RawCapabilities>("/capabilities");
+  const raw = await getApiCapabilities();
 
   const out: OsmCapabilities = {
     limits: {
-      maxArea: +raw.osm[0].api[0].area[0].$.maximum,
-      maxNoteArea: +raw.osm[0].api[0].note_area[0].$.maximum,
-      maxTracepointPerPage: +raw.osm[0].api[0].tracepoints[0].$.per_page,
-      maxWayNodes: +raw.osm[0].api[0].waynodes[0].$.maximum,
-      maxChangesetElements: +raw.osm[0].api[0].changesets[0].$.maximum_elements,
-      maxTimeout: +raw.osm[0].api[0].timeout[0].$.seconds,
+      maxArea: raw.api.area.maximum,
+      maxNoteArea: raw.api.note_area.maximum,
+      maxTracepointPerPage: raw.api.tracepoints.per_page,
+      maxWayNodes: raw.api.waynodes.maximum,
+      maxChangesetElements: raw.api.changesets.maximum_elements,
+      maxTimeout: raw.api.timeout.seconds,
     },
     policy: {
-      imageryBlacklist:
-        raw.osm[0].policy[0].imagery[0].blacklist?.map(
-          (item) => item.$.regex
-        ) || [],
+      imageryBlacklist: raw.policy.imagery.blacklist.map((item) => item.regex),
     },
   };
 

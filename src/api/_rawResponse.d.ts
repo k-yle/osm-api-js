@@ -1,27 +1,6 @@
 import type { OsmFeatureType } from "../types";
 
 /** @internal */
-export type RawCapabilities = {
-  osm: [
-    {
-      api: [
-        {
-          version: [{ $: { minimum: string; maximum: string } }];
-          area: [{ $: { maximum: string } }];
-          note_area: [{ $: { maximum: string } }];
-          tracepoints: [{ $: { per_page: string } }];
-          waynodes: [{ $: { maximum: string } }];
-          changesets: [{ $: { maximum_elements: string } }];
-          timeout: [{ $: { seconds: string } }];
-          status: [{ $: { database: "online"; api: "online"; gpx: "online" } }];
-        },
-      ];
-      policy: [{ imagery: [{ blacklist: { $: { regex: string } }[] }] }];
-    },
-  ];
-};
-
-/** @internal */
 export type RawChangesets = {
   osm: [
     {

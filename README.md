@@ -71,7 +71,7 @@ All methods return promises. Examples requests and responses are available for a
   - [`getUsers`](./examples/getUsers.md)
   - [`getUIdFromDisplayName`](./examples/getUIdFromDisplayName.md)
 - Misc
-  - [`getCapabilities()`](./examples/getCapabilities.md)
+  - [`getApiCapabilities()`](./examples/getApiCapabilities.md)
   - [`getMapData`](./examples/getMapData.md)
   - [Using the Development Server](./examples/dev-server.md)
 - Authentication (browser only, not available in NodeJS)

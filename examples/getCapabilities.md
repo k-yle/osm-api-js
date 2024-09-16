@@ -1,5 +1,8 @@
 # getCapabilities
 
+> [!CAUTION]
+> This method is deprecated, use [`getApiCapabilities`](./getApiCapabilities.md) instead.
+
 ```ts
 import { getCapabilities } from "osm-api";
 

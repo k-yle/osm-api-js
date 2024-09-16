@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Added new function `getApiCapabilities` and deprecated `getCapabilities`. The new function uses the recently-released JSON API, which has a different format.
+
 ## 2.1.3 (2024-07-30)
 
 - Update dependencies to satisfy `npm audit`
