@@ -14,4 +14,7 @@ export type OsmNote = {
   status: "open" | "closed";
   date_created: string;
   comments: OsmNoteComment[];
+  url: string;
+  comment_url: string;
+  close_url: string;
 };

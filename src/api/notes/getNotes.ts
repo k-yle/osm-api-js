@@ -13,6 +13,8 @@ const featureToNote = (feature: RawNotesSearch["features"][0]): OsmNote => {
 export type ListNotesOptions = {
   /** The search query */
   q: string;
+  /** Limits notes to the given bounding box */
+  bbox?: BBox | string;
   /**
    * The number of entries returned at max.
    * @default 100

@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Added a new option `bbox` to `getNotesForQuery`
 - Added a new option `limit` to `listChangesets`
 - Added new function `getPermissions`
 - Added new function `getApiCapabilities` and deprecated `getCapabilities`. The new function uses the recently-released JSON API, which has a different format.

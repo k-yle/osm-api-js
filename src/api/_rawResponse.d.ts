@@ -1,4 +1,10 @@
-import type { Changeset, ChangesetComment, OsmFeatureType } from "../types";
+import type { FeatureCollection, Point } from "geojson";
+import type {
+  Changeset,
+  ChangesetComment,
+  OsmFeatureType,
+  OsmNote,
+} from "../types";
 
 /** @internal */
 export type RawChangeset = Omit<
@@ -15,33 +21,10 @@ export type RawChangeset = Omit<
 };
 
 /** @internal */
-export type RawNotesSearch = {
-  features: {
-    geometry: {
-      type: "Point";
-      coordinates: [lng: number, lat: number];
-    };
-    properties: {
-      id: number;
-      url: string;
-      comment_url: string;
-      close_url: string;
-      date_created: string;
-      status: "open" | "closed";
-      comments: [
-        {
-          date: string;
-          uid: number;
-          user: string;
-          user_url: string;
-          action: "opened" | "closed" | "commented" | "reopened";
-          text: string;
-          html: string;
-        },
-      ];
-    };
-  }[];
-};
+export type RawNotesSearch = FeatureCollection<
+  Point,
+  Omit<OsmNote, "location">
+>;
 
 /** @internal */
 type RawFeature = {
