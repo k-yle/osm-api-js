@@ -55,5 +55,7 @@ export async function osmFetch<T>(
     return (await response.text()) as unknown as T;
   }
 
-  throw new Error(`OSM API: ${await response.text()}`);
+  const error = new Error(`OSM API: ${await response.text()}`);
+  error.cause = response.status;
+  throw error;
 }

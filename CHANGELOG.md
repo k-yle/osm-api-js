@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Added 4 new functions for notes & changeset subscriptions
+
 ## 2.2.0 (2024-09-16)
 
 - Added 3 new functions for the preferences API

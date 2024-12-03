@@ -66,6 +66,8 @@ All methods return promises. Examples requests and responses are available for a
   - [`getChangesetDiff`](./examples/getChangesetDiff.md)
   - 🔑 [`uploadChangeset`](./examples/uploadChangeset.md)
   - 🔑 [`createChangesetComment`](./examples/createChangesetComment.md)
+  - 🔑 [`subscribeToChangeset()`](./examples/subscribeToChangeset.md)
+  - 🔑 [`unsubscribeFromChangeset()`](./examples/unsubscribeFromChangeset.md)
 - Users
   - [`getUser`](./examples/getUser.md)
   - [`getUsers`](./examples/getUsers.md)
@@ -82,6 +84,8 @@ All methods return promises. Examples requests and responses are available for a
   - [`createNote()`](./examples/createNote.md)
   - 🔑 [`commentOnNote()`](./examples/commentOnNote.md)
   - 🔑 [`reopenNote()`](./examples/reopenNote.md)
+  - 🔑 [`subscribeToNote()`](./examples/subscribeToNote.md)
+  - 🔑 [`unsubscribeFromNote()`](./examples/unsubscribeFromNote.md)
 - Preferences
   - 🔑 [`getPreferences()`](./examples/getPreferences.md)
   - 🔑 [`updatePreferences()`](./examples/updatePreferences.md)
