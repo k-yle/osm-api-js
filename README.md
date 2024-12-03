@@ -76,6 +76,12 @@ All methods return promises. Examples requests and responses are available for a
   - 🔑 [`listMessages()`](./examples/listMessages.md)
   - 🔑 [`sendMessage()`](./examples/sendMessage.md)
   - 🔑 [`updateMessageReadStatus()`](./examples/updateMessageReadStatus.md)
+- Notes
+  - [`getNotesForQuery()`](./examples/getNotesForQuery.md)
+  - [`getNotesForArea()`](./examples/getNotesForArea.md)
+  - [`createNote()`](./examples/createNote.md)
+  - 🔑 [`commentOnNote()`](./examples/commentOnNote.md)
+  - 🔑 [`reopenNote()`](./examples/reopenNote.md)
 - Preferences
   - 🔑 [`getPreferences()`](./examples/getPreferences.md)
   - 🔑 [`updatePreferences()`](./examples/updatePreferences.md)
