@@ -134,6 +134,7 @@ OSM.login({
   mode: "popup",
   clientId: ".......",
   redirectUrl: "https://example.com/land.html",
+  // see the type definitions for other options
 })
   .then(() => {
     console.log("User is now logged in!");
@@ -161,6 +162,7 @@ OSM.login({
   mode: "redirect",
   clientId: ".......",
   redirectUrl: "https://example.com/land.html",
+  // see the type definitions for other options
 });
 ```
 

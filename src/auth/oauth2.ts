@@ -36,9 +36,16 @@ export async function login(options: LoginOptions): Promise<LoginData> {
     code_challenge: pkceChallenge,
   };
 
-  const loginUrl = `${getOAuthBaseUrl()}/oauth2/authorize?${new URLSearchParams(
-    qs
-  ).toString()}`;
+  const oauthPath = `/oauth2/authorize?${new URLSearchParams(qs).toString()}`;
+
+  // if switching users, there are two extra steps before the oauth flow starts
+  const path = options.switchUser
+    ? `/logout?referer=${encodeURIComponent(
+        `/login?referer=${encodeURIComponent(oauthPath)}`
+      )}`
+    : oauthPath;
+
+  const loginUrl = getOAuthBaseUrl() + path;
 
   const transaction: Transaction = { state, pkceVerifier, options };
 

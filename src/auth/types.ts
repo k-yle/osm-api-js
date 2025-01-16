@@ -16,6 +16,14 @@ export type LoginOptions = {
   clientId: string;
   scopes: readonly OsmOAuth2Scopes[];
   popupSize?: readonly [width: number, height: number];
+  /**
+   * @default false
+   * If `true`, the login popup/page will:
+   * 1. first ask the user to logout of OSM
+   * 2. Then ask the user to log back in
+   * 3. Then start the OAuth flow
+   */
+  switchUser?: boolean;
 };
 
 /** this is the payload that gets stored in localStorage */
