@@ -1,3 +1,4 @@
+export * from "./chunkOsmChange";
 export * from "./createChangesetComment";
 export * from "./getChangesetDiff";
 export * from "./getChangesets";
