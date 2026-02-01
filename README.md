@@ -97,9 +97,12 @@ All methods return promises. Examples requests and responses are available for a
   - 🔑 [`subscribeToNote()`](./examples/subscribeToNote.md)
   - 🔑 [`unsubscribeFromNote()`](./examples/unsubscribeFromNote.md)
 - Preferences
-  - 🔑 [`getPreferences()`](./examples/getPreferences.md)
-  - 🔑 [`updatePreferences()`](./examples/updatePreferences.md)
-  - 🔑 [`deletePreferences()`](./examples/deletePreferences.md)
+  - 🔑 [`getPreferences()`](./examples/getPreferences.md) (default merged; optional `handleStorage: 'raw'`)
+  - 🔑 [`getPreference(key, options?)`](./examples/getPreference.md) (single key; optional `storage`, schema)
+  - 🔑 [`updatePreference(key, value, options?)`](./examples/updatePreference.md) (JSON value; optional `storage`, schema)
+  - 🔑 [`updatePreferences(key, value)`](./examples/updatePreferences.md) (raw string) — _deprecated_
+  - 🔑 [`deletePreference(key, options?)`](./examples/deletePreference.md) (optional `storage`)
+  - 🔑 [`deletePreferences(key)`](./examples/deletePreferences.md) — _deprecated_
 - Misc
   - [`getApiCapabilities()`](./examples/getApiCapabilities.md)
   - [`getMapData`](./examples/getMapData.md)

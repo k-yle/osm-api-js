@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Enhanced preferences API: `getPreference(key, options?)`, `updatePreference(key, value, options?)`, `deletePreference(key, options?)` with `storage: 'auto' | 'single' | 'split'` and optional Standard Schema validation. `getPreferences(options?)` defaults to `handleStorage: 'merged'` (one entry per logical key); use `handleStorage: 'raw'` for API keys as returned. Values over 255 chars are stored as split storage (root + chunks); see [updatePreference.md](./examples/updatePreference.md#split-storage). Backward compatible: `getPreferences()`, `updatePreferences(key, string)`, `deletePreferences(key)` unchanged.
+
 ## 4.0.0 (2026-02-11)
 
 - 💥 BREAKING CHANGE: `uploadChangeset` now returns a object instead of a single changeset ID. This is because:
