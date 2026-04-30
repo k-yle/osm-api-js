@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-- Enhanced preferences API: `getPreference(key, options?)`, `updatePreference(key, value, options?)`, `deletePreference(key, options?)` with `storage: 'auto' | 'single' | 'split'` and optional Standard Schema validation. `getPreferences(options?)` defaults to `handleStorage: 'merged'` (one entry per logical key); use `handleStorage: 'raw'` for API keys as returned. Values over 255 chars are stored as split storage (root + chunks); see [updatePreference.md](./examples/updatePreference.md#split-storage). Backward compatible: `getPreferences()`, `updatePreferences(key, string)`, `deletePreferences(key)` unchanged.
+- 💥 BREAKING CHANGE: `getPreferences()` now returns one merged value per logical preference key by default. Use `getPreferences({ handleStorage: 'raw' })` if you need the raw API keys as returned by the server.
+- Add split-preference storage support with new APIs `getPreference(key, options?)`, `updatePreference(key, value, options?)`, and `deletePreference(key, options?)` (`storage: 'auto' | 'single' | 'split'` plus optional Standard Schema validation). Values over 255 chars are now stored as split storage (root + chunks); see [updatePreference.md](./examples/updatePreference.md#split-storage).
+- Fix preference storage transitions and merged reads so `updatePreference` removes conflicting single/split copies and merged reads deterministically prefer valid split values.
 
 ## 4.0.0 (2026-02-11)
 

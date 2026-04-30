@@ -3,10 +3,12 @@ import type { FetchOptions } from "../_osmFetch";
 import type { StorageMode } from "./chunked";
 import {
   assertPreferenceKey,
+  deleteChunkedPreference,
   hasSingleKey,
   hasSplitKey,
   writePreferenceValue,
 } from "./chunked";
+import { deletePreferences } from "./deletePreferences";
 import { getPreferences } from "./getPreferences";
 
 export interface UpdatePreferenceOptions extends FetchOptions {
@@ -46,16 +48,31 @@ export async function updatePreference(
       );
     }
   }
-  if (storage === "auto") {
-    const preferences = await getPreferences({
-      ...options,
-      handleStorage: "raw",
-    });
-    if (hasSingleKey(preferences, key) && hasSplitKey(preferences, key)) {
-      throw new Error(
-        `Preference "${key}" exists as both a single key and split storage. Set storage: 'single' or 'split' to resolve.`
-      );
-    }
+  const preferences = await getPreferences({
+    ...options,
+    handleStorage: "raw",
+  });
+  const singleExists = hasSingleKey(preferences, key);
+  const splitExists = hasSplitKey(preferences, key);
+
+  if (storage === "auto" && singleExists && splitExists) {
+    throw new Error(
+      `Preference "${key}" exists as both a single key and split storage. Set storage: 'single' or 'split' to resolve.`
+    );
   }
-  await writePreferenceValue(key, serialized, storage, options);
+
+  const targetStorage: Exclude<StorageMode, "auto"> =
+    storage === "auto"
+      ? serialized.length <= 255
+        ? "single"
+        : "split"
+      : storage;
+
+  await writePreferenceValue(key, serialized, targetStorage, options);
+
+  if (targetStorage === "single" && splitExists) {
+    await deleteChunkedPreference(key, options);
+  } else if (targetStorage === "split" && singleExists) {
+    await deletePreferences(key, options);
+  }
 }

@@ -22,7 +22,7 @@ describe("setChunkedPreference", () => {
     expect(updateCalls.length).toBeGreaterThanOrEqual(2);
     const rootCall = updateCalls.find(([k]) => k === "P:root");
     expect(rootCall).toBeDefined();
-    expect(updateCalls[updateCalls.length - 1]![0]).toBe("P:root");
+    expect(updateCalls.at(-1)?.[0]).toBe("P:root");
     const chunkCalls = updateCalls.slice(0, -1);
     expect(
       chunkCalls.every(([k]) => k.startsWith("P:") && k !== "P:root")
@@ -64,7 +64,7 @@ describe("setChunkedPreference", () => {
   it("retries chunk PUT on failure and eventually succeeds", async () => {
     let chunkPutCount = 0;
     vi.mocked(getPreferences).mockResolvedValue({});
-    vi.mocked(updatePreferences).mockImplementation(async (key, value) => {
+    vi.mocked(updatePreferences).mockImplementation(async (key) => {
       if (key !== "P:root") {
         chunkPutCount++;
         if (chunkPutCount <= 2) throw new Error("network");

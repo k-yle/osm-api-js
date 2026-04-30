@@ -62,7 +62,7 @@ describe("assertPreferenceKey", () => {
     );
   });
   it("throws when key contains \\", () => {
-    expect(() => assertPreferenceKey("key\\back")).toThrow(
+    expect(() => assertPreferenceKey(String.raw`key\back`)).toThrow(
       /Preference key must not contain.*unsafe in URL path/
     );
   });
@@ -283,6 +283,16 @@ describe("mergePreferencesToLogical", () => {
     expect(merged["single"]).toBe("v");
     expect(merged["P"]).toBe("p-value");
     expect(Object.keys(merged)).toHaveLength(2);
+  });
+  it("prefers valid split value when both single and split exist", async () => {
+    const packed = await packChunked("P", "split-value");
+    const prefs: Record<string, string> = {
+      [packed.rootKey]: packed.rootValue,
+      ...packed.chunks,
+      P: "single-value",
+    };
+    const merged = mergePreferencesToLogical(prefs);
+    expect(merged["P"]).toBe("split-value");
   });
   it("merges split when logical key contains colon (e.g. foo:bar)", async () => {
     const packed = await packChunked("foo:bar", "x");

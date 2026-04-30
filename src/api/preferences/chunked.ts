@@ -28,7 +28,7 @@ const MAX_CHUNKS = Math.floor(VALUE_LIMIT / (HASH_LENGTH + 1));
 const MAX_PAYLOAD_BYTES = MAX_CHUNKS * VALUE_LIMIT;
 
 /** Characters disallowed in preference keys (unsafe in URL path). */
-const PREFERENCE_KEY_DISALLOWED = /[/?#\\]/;
+const PREFERENCE_KEY_DISALLOWED = /[#/?\\]/;
 
 /**
  * Validates that a preference key does not contain characters unsafe in the OSM API path.
@@ -66,7 +66,7 @@ function chunkKey(prefix: string, hash: string): string {
 function isChunkKeyForPrefix(key: string, prefix: string): boolean {
   const suffix = prefix.length + 1;
   return (
-    key.startsWith(prefix + ":") &&
+    key.startsWith(`${prefix}:`) &&
     key.length === suffix + HASH_LENGTH &&
     /^[\da-f]{8}$/i.test(key.slice(suffix))
   );
@@ -329,18 +329,18 @@ async function putChunkWithRetry(
   options: FetchOptions | undefined,
   attempts: number
 ): Promise<void> {
-  let lastErr: unknown;
+  let lastError: unknown;
   let attempt = 0;
   while (attempt < attempts) {
     try {
       await updatePreferences(key, chunkValue, options);
       return;
-    } catch (e) {
-      lastErr = e;
+    } catch (error) {
+      lastError = error;
       attempt++;
     }
   }
-  throw lastErr;
+  throw lastError;
 }
 
 /**
@@ -377,7 +377,9 @@ export async function setChunkedPreference(
 
   const newHashes = new Set(rv.split(",").filter(Boolean));
   const orphanChunkKeys = Object.keys(preferences).filter(
-    (k) => isChunkKeyForPrefix(k, prefix) && !newHashes.has(k.slice(prefix.length + 1))
+    (k) =>
+      isChunkKeyForPrefix(k, prefix) &&
+      !newHashes.has(k.slice(prefix.length + 1))
   );
   const keysToDelete = [...new Set([...oldKeysToDelete, ...orphanChunkKeys])];
 
@@ -426,25 +428,36 @@ export function mergePreferencesToLogical(
   preferences: Tags
 ): Record<string, string> {
   const merged: Record<string, string> = {};
-  const rootPrefixes = Object.keys(preferences)
-    .filter((k) => k.endsWith(":root"))
-    .map((k) => k.slice(0, -5));
+  const rootPrefixes = new Set(
+    Object.keys(preferences)
+      .filter((k) => k.endsWith(":root"))
+      .map((k) => k.slice(0, -5))
+  );
+  const rootPrefixList = [...rootPrefixes];
+
+  // First pass: include plain single keys (exclude split chunks/root keys).
   for (const key of Object.keys(preferences)) {
-    if (key.endsWith(":root")) {
-      const prefix = key.slice(0, -5);
-      const value = unpackChunkedRaw(preferences, prefix);
-      if (value !== null) {
-        merged[prefix] = value;
-      }
-    } else if (
-      !rootPrefixes.some((prefix) => isChunkKeyForPrefix(key, prefix))
-    ) {
-      const v = preferences[key];
-      if (v !== undefined) {
-        merged[key] = v;
+    if (key.endsWith(":root")) continue;
+
+    const isChunkKey = rootPrefixList.some((prefix) =>
+      isChunkKeyForPrefix(key, prefix)
+    );
+    if (!isChunkKey) {
+      const value = preferences[key];
+      if (value !== undefined) {
+        merged[key] = value;
       }
     }
   }
+
+  // Second pass: merge split keys and deterministically override single keys.
+  for (const prefix of rootPrefixes) {
+    const value = unpackChunkedRaw(preferences, prefix);
+    if (value !== null) {
+      merged[prefix] = value;
+    }
+  }
+
   return merged;
 }
 

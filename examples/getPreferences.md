@@ -24,7 +24,9 @@ my-key:e5f6g7h8="d","e"]}
 
 ### Get with `handleStorage: merged`
 
-`merged` is the default. One entry per logical key; split keys merged into a single value. This helper does not support types or a parser at the moment—values are raw strings. For typed, validated reads use [getPreference](getPreference.md) with a schema; see [Schema and types](updatePreference.md#schema-and-types) in updatePreference.md.
+`merged` is the default. One entry per logical key; split keys merged into a single value. If both single and split forms exist for the same logical key, the merged output uses the split value when the split data is complete/valid. If split data is incomplete (for example, root present but a chunk missing), the split value is ignored for merged output.
+
+This helper does not support types or a parser at the moment—values are raw strings. For typed, validated reads use [getPreference](getPreference.md) with a schema; see [Schema and types](updatePreference.md#schema-and-types) in updatePreference.md.
 
 ```ts
 import { getPreferences } from "osm-api";

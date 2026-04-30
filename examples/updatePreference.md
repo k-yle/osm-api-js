@@ -97,6 +97,8 @@ await updatePreference("my-key", { theme: "dark" });
 // → void  After: my-key={"theme":"dark"}  (single key written)
 ```
 
+When updating with explicit `storage: 'single'` or `storage: 'split'`, the library also removes the other storage form if it exists for that key, so future `storage: 'auto'` reads/writes do not hit single/split conflict errors.
+
 ### Update with `storage: single`
 
 One API key only. Throws if serialized length > 255.
