@@ -1,8 +1,5 @@
-export {
-  StorageMode,
-  PreferenceResult,
-  PREFERENCE_SPLIT_MAX_PAYLOAD_BYTES,
-} from "./chunked";
+export { PREFERENCE_SPLIT_MAX_PAYLOAD_BYTES } from "./chunked";
+export type { PreferenceResult, StorageMode } from "./chunked";
 export * from "./deletePreference";
 export * from "./deletePreferences";
 export * from "./getPreference";

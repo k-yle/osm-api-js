@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OSM Auth Landing</title>
+  </head>
+  <body>
+    <p>Completing OSM auth...</p>
+    <script>
+      if (new URLSearchParams(location.search).has("code")) {
+        new BroadcastChannel("osm-api-auth-complete").postMessage(location.href);
+        window.close();
+      }
+    </script>
+  </body>
+</html>
