@@ -2,12 +2,32 @@
   to experiment with auth locally, run `npx serve -p 4167` from the repo root
   Then open http://127.0.0.1:4167/src/__tests__
  -->
+<style>
+  *:not(code):not(pre) {
+    font-family: sans-serif;
+  }
+  code,
+  pre {
+    word-wrap: break-word;
+    padding: 0.15em 0.3em;
+    font-size: 0.875em;
+    color: #d63384;
+    background: #d633841a;
+    border-radius: 0.25rem;
+  }
+  pre {
+    background: #f2f2f2;
+  }
+</style>
 <script>
   if (new URLSearchParams(location.search).has("code")) {
     new BroadcastChannel("osm-api-auth-complete").postMessage(location.href);
     window.close();
   }
 </script>
+
+<!-- order matters: when running locally, it will use the local file -->
+<script src="https://unpkg.com/osm-api"></script>
 <script src="../../dist/index.js"></script>
 
 <div></div>
@@ -15,6 +35,10 @@
   You are logged in!
   <button onclick="getUser()">Call the OSM User API</button>
   <button onclick="logout()">Logout</button>
+  <br />
+  You can also open the DevTools Console and experiment using the
+  <code>OSM</code> global variable. For example,
+  <code>await OSM.getUser('me')</code>
   <pre></pre>
 </main>
 <aside hidden>
@@ -23,11 +47,10 @@
 
 <script>
   const USE_DEV_SERVER = false;
-  const redirectUrl = "http://127.0.0.1:4167/src/__tests__";
 
   // must use 127.0.0.1, not localhost
   if (location.hostname === "localhost") {
-    window.location.replace(redirectUrl);
+    location.replace(("" + location).replace("localhost", "127.0.0.1"));
   }
 
   if (USE_DEV_SERVER) {
@@ -45,7 +68,7 @@
       clientId: USE_DEV_SERVER
         ? "JOJQE0g3lnqRuY2fnkuIFr4o7Y49Eq2wem1AaPqUbD4"
         : "ytK3ZAZCFb8z2MjIzo0MMpXE8qiseOUGnGR_5jIIr5M",
-      redirectUrl: redirectUrl,
+      redirectUrl: location.origin + location.pathname,
       scopes: ["write_api", "read_prefs"],
     })
       .then(init)
