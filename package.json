@@ -28,6 +28,7 @@
     "node": ">=18"
   },
   "dependencies": {
+    "@standard-schema/spec": "^1.1.0",
     "@types/geojson": "^7946.0.13",
     "fast-xml-parser": "^4.4.1"
   },

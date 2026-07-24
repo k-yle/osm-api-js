@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- 💥 BREAKING CHANGE: `getPreferences()` now returns one merged value per logical preference key by default. Use `getPreferences({ handleStorage: 'raw' })` if you need the raw API keys as returned by the server.
+- Add split-preference storage support with new APIs `getPreference(key, options?)`, `updatePreference(key, value, options?)`, and `deletePreference(key, options?)` (`storage: 'auto' | 'single' | 'split'` plus optional Standard Schema validation). Values over 255 chars are now stored as split storage (root + chunks); see [updatePreference.md](./examples/updatePreference.md#split-storage).
+- Fix preference storage transitions and merged reads so `updatePreference` removes conflicting single/split copies and merged reads deterministically prefer valid split values.
+
 ## 4.0.0 (2026-02-11)
 
 - 💥 BREAKING CHANGE: `uploadChangeset` now returns a object instead of a single changeset ID. This is because:
