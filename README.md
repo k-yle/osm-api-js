@@ -45,7 +45,7 @@ await OSM.createChangesetComment(114733070, "Thanks for your edit!");
 If you don't use a bundler, you can also include the module using a `<script>` tag:
 
 ```html
-<script src="https://unpkg.com/osm-api@2"></script>
+<script src="https://unpkg.com/osm-api@4"></script>
 <script>
   OSM.getFeature("way", 23906749);
   OSM.login({ ... });
@@ -60,7 +60,7 @@ If you use an AI agent like [Claude](https://claude.ai), you can register this r
 You will need to [install NodeJS](https://nodejs.org/download), and then run this command:
 
 ```sh
-npx skills add osmlab/osm-api-js
+npx skills add osmlab/osm-api-js -g
 ```
 
 Then you can give your agent instructions like this:
