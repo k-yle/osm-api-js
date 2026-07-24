@@ -16,6 +16,21 @@
     {
       "key": "chunk",
       "description": "Added to changesets when uploading, if the changeset was so big that it had to be chunked (split) into multiple changesets."
+    },
+    {
+      "key": "merge_conflict_resolved",
+      "value": "automatically",
+      "description": "Added to changesets if a merge conflict occured and it was automatically resolved (without user interaction)."
+    },
+    {
+      "key": "merge_conflict_resolved",
+      "value": "manually",
+      "description": "Added to changesets if a merge conflict occured and it was manually resolved by the user."
+    },
+    {
+      "key": "merge_conflict_resolved",
+      "value": "automatically;manually",
+      "description": "Added to changesets if multiple merge conflicts occured, and some were automatically resolved and others were manually resolved."
     }
   ]
 }

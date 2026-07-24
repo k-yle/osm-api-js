@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- [uploadChangeset] optionally handle merge conflicts, if you provide callback functions for `onAutomaticConflict` and `onManualConflict`.
+
 ## 4.0.0 (2026-02-11)
 
 - 💥 BREAKING CHANGE: `uploadChangeset` now returns a object instead of a single changeset ID. This is because:

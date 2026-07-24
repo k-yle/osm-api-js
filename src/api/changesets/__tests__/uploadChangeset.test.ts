@@ -34,11 +34,14 @@ class MockDatabase {
     };
   }
 
-  onUpload = vi.fn((_osmChange: OsmChange) => {
+  onUpload = vi.fn(async (_osmChange: OsmChange) => {
     const osmChange = structuredClone(_osmChange);
     const response: RawUploadResponse = {
       diffResult: [{ $: { generator: "", version: "" } }],
     };
+
+    const count = Object.values(osmChange).flat().length;
+    if (!count) throw new Error("OsmChange is empty");
 
     // create is easy. just need to allocate a new ID
     this.#db.push(
@@ -234,9 +237,11 @@ describe("uploadChangeset", () => {
   it("adds a fallback created_by tag", async () => {
     const output = await uploadChangeset(
       { comment: "added a building" },
-      { create: [], modify: [], delete: [] }
+      { create: [MOCK_FEATURES[0]], modify: [], delete: [] }
     );
-    expect(output).toStrictEqual({ 1: { diffResult: {} } });
+    expect(output).toStrictEqual({
+      1: { diffResult: { node: { 1: { newId: 1, newVersion: 1 } } } },
+    });
 
     expect(osmFetch).toHaveBeenCalledTimes(3);
     expect(osmFetch).toHaveBeenNthCalledWith(
@@ -363,6 +368,353 @@ describe("uploadChangeset", () => {
     // don't need to assert the output, since it's the same
     // as the previous test case.
     expect(Object.keys(output).map(Number)).toStrictEqual([1, 2, 3, 4]);
+  });
+
+  describe("merge conflicts", () => {
+    it("rejects changesets with merge conflicts and no callback", async () => {
+      // trying to modify node2, our base version is 1, but the DB already has v2.
+      const osmChange: OsmChange = {
+        create: [],
+        modify: [{ ...JUNK, type: "node", id: 2, version: 1, lat: 0, lon: 0 }],
+        delete: [],
+      };
+      await expect(() =>
+        uploadChangeset({ created_by: "me" }, osmChange)
+      ).rejects.toThrow(
+        new Error(
+          "A auto-mergable conflict occured for n2@(1…2), but neither onAutomaticConflict nor onManualConflict is not defined."
+        )
+      );
+    });
+
+    it("rejects complex changesets with merge conflicts and only an automatic callback, no manual callback", async () => {
+      // trying to modify node2, our base version is 1, but the DB already has v2.
+      const osmChange: OsmChange = {
+        create: [],
+        modify: [{ ...JUNK, type: "node", id: 2, version: 1, lat: 1, lon: 1 }],
+        delete: [],
+      };
+      await expect(() =>
+        uploadChangeset({ created_by: "me" }, osmChange, {
+          onAutomaticConflict: () => ({}),
+        })
+      ).rejects.toThrow(
+        new Error(
+          "A complex merge conflict occured for n2@(1…2), but onManualConflict is not defined."
+        )
+      );
+    });
+
+    it("rejects changesets if the merge conflict callback returns false", async () => {
+      // trying to modify node2, our base version is 1, but the DB already has v2.
+      const osmChange: OsmChange = {
+        create: [],
+        modify: [{ ...JUNK, type: "node", id: 2, version: 1, lat: 0, lon: 0 }],
+        delete: [],
+      };
+      await expect(() =>
+        uploadChangeset({ created_by: "me" }, osmChange, {
+          onManualConflict: () => false,
+        })
+      ).rejects.toThrow(
+        new Error(
+          "A merge conflict occured, but onManualConflict returned false for n2@(1…2)"
+        )
+      );
+    });
+
+    it("uploads changesets after the user manually resolves conflicts", async () => {
+      // trying to modify node2, our base version is 1, but the DB already has v2.
+      const osmChange: OsmChange = {
+        create: [],
+        modify: [
+          { ...JUNK, type: "node", id: 2, version: 1, lat: -36, lon: 174 },
+        ],
+        delete: [],
+      };
+
+      const onProgress = vi.fn();
+
+      const output = await uploadChangeset(
+        { created_by: "me", source: "hi" },
+        osmChange,
+        {
+          onManualConflict: ({ local }) => ({
+            merged: { ...local, lat: -35 }, // pretend to do some sort of merging
+            tags: { custom_changeset_tag: "yeah" },
+          }),
+          onProgress,
+          disableCompression: true,
+        }
+      );
+
+      expect(output).toStrictEqual({
+        1: { diffResult: { node: { 2: { newId: 2, newVersion: 3 } } } },
+      });
+
+      expect(osmFetch).toHaveBeenCalledTimes(6);
+
+      // create
+      expect(osmFetch).toHaveBeenNthCalledWith(
+        1,
+        "/0.6/changeset/create",
+        undefined,
+        expect.objectContaining({
+          body: `<osm>
+  <changeset>
+    <tag k="created_by" v="me"/>
+    <tag k="source" v="hi"/>
+  </changeset>
+</osm>
+`,
+        })
+      );
+
+      // first upload attempt (version is set to 1)
+      expect(osmFetch).toHaveBeenNthCalledWith(
+        2,
+        "/0.6/changeset/1/upload",
+        undefined,
+        expect.objectContaining({
+          body: `<osmChange version="0.6" generator="osm-api-js">
+  <create/>
+  <modify>
+    <node id="2" version="1" changeset="1" lat="-36" lon="174"/>
+  </modify>
+  <delete if-unused="true"/>
+</osmChange>
+`,
+        })
+      );
+
+      // now it tries to fetch the conflicting features
+      expect(osmFetch).toHaveBeenNthCalledWith(
+        3,
+        "/0.6/nodes.json?nodes=2",
+        undefined,
+        undefined
+      );
+
+      // and then update the changeset tags
+      expect(osmFetch).toHaveBeenNthCalledWith(
+        4,
+        "/0.6/changeset/1",
+        undefined,
+        expect.objectContaining({
+          body: `<osm>
+  <changeset>
+    <tag k="custom_changeset_tag" v="yeah"/>
+    <tag k="created_by" v="me"/>${/* it kept created_by, even tho we didn't return it */ ""}
+    <tag k="merge_conflict_resolved" v="manually"/>
+  </changeset>
+</osm>
+`,
+        })
+      );
+
+      // second upload attempt (version is set to 2), result is the merged version (lat=-35)
+      expect(osmFetch).toHaveBeenNthCalledWith(
+        5,
+        "/0.6/changeset/1/upload",
+        undefined,
+        expect.objectContaining({
+          body: `<osmChange version="0.6" generator="osm-api-js">
+  <create/>
+  <modify>
+    <node id="2" version="2" changeset="1" lat="-35" lon="174"/>
+  </modify>
+  <delete if-unused="true"/>
+</osmChange>
+`,
+        })
+      );
+
+      // finally we can close the changeset
+      expect(osmFetch).toHaveBeenNthCalledWith(
+        6,
+        "/0.6/changeset/1/close",
+        undefined,
+        expect.anything()
+      );
+
+      expect(onProgress).toHaveBeenCalledTimes(6);
+      expect(onProgress).toHaveBeenNthCalledWith(1, {
+        phase: "upload",
+        step: 0,
+        total: 1,
+      });
+      expect(onProgress).toHaveBeenNthCalledWith(2, {
+        phase: "upload",
+        step: 1 / 3,
+        total: 1,
+      });
+      expect(onProgress).toHaveBeenNthCalledWith(3, {
+        phase: "merge_conflicts",
+        step: 0,
+        total: 2,
+      });
+      expect(onProgress).toHaveBeenNthCalledWith(4, {
+        phase: "merge_conflicts",
+        step: 1,
+        total: 2,
+      });
+      expect(onProgress).toHaveBeenNthCalledWith(5, {
+        phase: "merge_conflicts",
+        step: 2,
+        total: 2,
+      });
+      expect(onProgress).toHaveBeenNthCalledWith(6, {
+        phase: "upload",
+        step: 2 / 3,
+        total: 1,
+      });
+    });
+
+    it("can automatically resolve conflicts if both local+remote are identical", async () => {
+      // trying to modify node2, our base version is 1, but the DB already has v2.
+      const osmChange: OsmChange = {
+        create: [],
+        modify: [{ ...JUNK, type: "node", id: 2, version: 1, lat: 0, lon: 0 }],
+        delete: [],
+      };
+      const output = await uploadChangeset({ created_by: "me" }, osmChange, {
+        onAutomaticConflict: () => ({}),
+        disableCompression: true,
+      });
+      expect(output).toStrictEqual({
+        1: { diffResult: { node: { 2: { newId: 2, newVersion: 3 } } } },
+      });
+
+      expect(osmFetch).toHaveBeenCalledTimes(6);
+      // 1 create changeset
+      // 2 upload first attempt
+      // 3 get conflicting feature
+      // 4 update changeset tags
+      // 5 update changeset content
+      // 6 close changeset
+
+      // don't need to assert this all, since we've tested it above.
+      // only (4) and (5) are interesting.
+
+      //  update the changeset tags
+      expect(osmFetch).toHaveBeenNthCalledWith(
+        4,
+        "/0.6/changeset/1",
+        undefined,
+        expect.objectContaining({
+          body: `<osm>
+  <changeset>
+    <tag k="created_by" v="me"/>${/* it kept created_by, even tho we didn't return it */ ""}
+    <tag k="merge_conflict_resolved" v="automatically"/>
+  </changeset>
+</osm>
+`,
+        })
+      );
+
+      // second upload attempt (version is set to 2)
+      expect(osmFetch).toHaveBeenNthCalledWith(
+        5,
+        "/0.6/changeset/1/upload",
+        undefined,
+        expect.objectContaining({
+          body: `<osmChange version="0.6" generator="osm-api-js">
+  <create/>
+  <modify>
+    <node id="2" version="2" changeset="1" lat="0" lon="0"/>
+  </modify>
+  <delete if-unused="true"/>
+</osmChange>
+`,
+        })
+      );
+    });
+
+    it("can automatically resolve trivial conflicts", async () => {
+      // trying to modify node3, our base version is v1, but the DB already has v2.
+      // this can be automerged because it's a delete action on both local+remote
+      const osmChange: OsmChange = {
+        create: [],
+        modify: [],
+        delete: [
+          {
+            ...JUNK,
+            type: "node",
+            id: 3,
+            version: 1,
+            lat: 0,
+            lon: 0,
+            visible: false,
+          },
+        ],
+      };
+      const output = await uploadChangeset({ created_by: "me" }, osmChange, {
+        onAutomaticConflict: () => ({ tags: { created_by: "my app!" } }),
+        disableCompression: true,
+      });
+      expect(output).toStrictEqual({
+        1: { diffResult: { node: { 3: { newId: 3, newVersion: 3 } } } },
+      });
+
+      expect(osmFetch).toHaveBeenCalledTimes(6);
+      // 1 create changeset
+      // 2 upload first attempt
+      // 3 get conflicting feature
+      // 4 update changeset tags
+      // 5 update changeset content
+      // 6 close changeset
+
+      // don't need to assert this all, since we've tested it above.
+      // only (4) and (5) are interesting.
+
+      //  update the changeset tags
+      expect(osmFetch).toHaveBeenNthCalledWith(
+        4,
+        "/0.6/changeset/1",
+        undefined,
+        expect.objectContaining({
+          body: `<osm>
+  <changeset>
+    <tag k="created_by" v="my app!"/>${/* value was changed */ ""}
+    <tag k="merge_conflict_resolved" v="automatically"/>
+  </changeset>
+</osm>
+`,
+        })
+      );
+
+      // second upload attempt (version is set to 2)
+      expect(osmFetch).toHaveBeenNthCalledWith(
+        5,
+        "/0.6/changeset/1/upload",
+        undefined,
+        expect.objectContaining({
+          body: `<osmChange version="0.6" generator="osm-api-js">
+  <create/>
+  <modify/>
+  <delete if-unused="true">
+    <node id="3" version="2" changeset="1" lat="0" lon="0"/>
+  </delete>
+</osmChange>
+`,
+        })
+      );
+    });
+
+    it("does not enter the merge-conflict loop if a non-409 error occurs", async () => {
+      const onManualConflict = vi.fn();
+      await expect(() =>
+        uploadChangeset(
+          { created_by: "me" },
+          { create: [], modify: [], delete: [] },
+          { onManualConflict }
+        )
+      ).rejects.toThrow(new Error("OsmChange is empty"));
+
+      expect(onManualConflict).not.toHaveBeenCalled();
+    });
+
+    // end of merge conflict tests
   });
 
   // end of tests
