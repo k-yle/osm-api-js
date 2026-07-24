@@ -53,6 +53,34 @@ If you don't use a bundler, you can also include the module using a `<script>` t
 </script>
 ```
 
+## ✨AI Skills✨
+
+This repository also includes an **AI Skill**.
+If you use an AI agent like [Claude](https://claude.ai), you can register this repository as a ["Skill"](https://skill.md).
+You will need to [install NodeJS](https://nodejs.org/download), and then run this command:
+
+```sh
+npx skills add osmlab/osm-api-js
+```
+
+Then you can give your agent instructions like this:
+
+> Find all roads in Devonport, Auckland that were tagged with `oneway:bicycle=construction` more than 3 years ago.
+> For each road, create an OSM Note at the midpoint of the road.
+> The note should ask "has construction of the contraflow bike lane been completed?"
+> Login as me before creating the note.
+
+or:
+
+> Someone has recently been drawing roads on top of other roads in OSM.
+> Download OSM data around Āwhitu, and find all ways which are drawn exactly on top of another road.
+> Generate an osmChange or osmPatch file which I can manually review.
+> DO NOT UPLOAD IT.
+> The osmChange file should delete the recently added duplicate roads.
+> If any tags differ, stop and ask me how the conflict should be handled.
+
+Obviously you should **always follow the [Automated Edits Code of Conduct](https://osm.wiki/Automated_Edits_code_of_conduct)**, and not abuse this.
+
 ## Examples
 
 All methods return promises. Examples requests and responses are available for all methods:
